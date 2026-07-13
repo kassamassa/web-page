@@ -426,31 +426,53 @@ function initGSAP(d){
   });
 
   // S0 初期アニメ
-  gsap.set('.s0-en',{scale:1.4,filter:'blur(20px) brightness(3)'});
-  gsap.set(['.s-classify','.s0-ja','.s0-vow'],{y:20});
-  gsap.set('.wings-svg',{scale:0.6});
-  gsap.timeline({defaults:{ease:'power3.out'}})
-    .to('.s-classify',{opacity:1,y:0,duration:0.7},0.3)
-    .to('.wings-svg',{opacity:1,scale:1,duration:0.8,ease:'back.out(1.5)'},0.7)
-    .to('.s0-en',{opacity:1,scale:1,filter:'blur(0px) brightness(1)',duration:1,ease:'power4.out'},1.1)
-    .to('.s0-ja',{opacity:1,y:0,duration:0.7},1.7)
-    .to('.s0-vow',{opacity:1,y:0,duration:0.7},2.1);
+  // S0：Z軸キネティック入場
+  gsap.set('.s0-en', { scale:8, opacity:0, filter:'blur(40px) brightness(4)', transformOrigin:'center center' });
+  gsap.set('.s-classify', { opacity:0, y:30 });
+  gsap.set('.s0-ja', { opacity:0, letterSpacing:'1em' });
+  gsap.set('.s0-vow', { opacity:0, y:20 });
+  gsap.set('.wings-svg', { scale:0, opacity:0, rotation:-15 });
 
-  gsap.to('.s0-en',{yPercent:18,ease:'none',scrollTrigger:{trigger:'#s0',start:'top top',end:'bottom top',scrub:true}});
-  gsap.to('.s0-ja',{yPercent:10,ease:'none',scrollTrigger:{trigger:'#s0',start:'top top',end:'bottom top',scrub:true}});
-  gsap.to('.wings-svg',{yPercent:6,ease:'none',scrollTrigger:{trigger:'#s0',start:'top top',end:'bottom top',scrub:true}});
+  gsap.timeline({ defaults:{ ease:'power4.out' } })
+    .to('.s0-en', { scale:1, opacity:1, filter:'blur(0px) brightness(1)', duration:1.6 }, 0.2)
+    .to('.s-classify', { opacity:1, y:0, duration:0.6 }, 0.8)
+    .to('.wings-svg', { scale:1, opacity:1, rotation:0, duration:1, ease:'back.out(1.8)' }, 1.0)
+    .to('.s0-ja', { opacity:1, letterSpacing:'0.65em', duration:1, ease:'power2.out' }, 1.2)
+    .to('.s0-vow', { opacity:1, y:0, duration:0.6 }, 1.8);
+
+  // S0→S1スクロールでタイトルがZ軸方向に突き抜ける
+  gsap.timeline({
+    scrollTrigger:{ trigger:'#s0', start:'top top', end:'bottom top', scrub:1, scroller:scroller }
+  })
+  .to('.s0-en',  { scale:12, opacity:0, filter:'blur(30px)', ease:'power2.in' }, 0)
+  .to('.s0-ja',  { opacity:0, letterSpacing:'2em', ease:'power2.in' }, 0)
+  .to('.wings-svg', { scale:0.3, opacity:0, rotation:15, ease:'power2.in' }, 0)
+  .to('.s-classify', { opacity:0, y:-20, ease:'power2.in' }, 0)
+  .to('.s0-vow', { opacity:0, y:-30, ease:'power2.in' }, 0);
 
   // S1
-  gsap.set('#s1-label',{y:10}); gsap.set('.s1-sub',{y:20});
+  // S1入場：単語がZ軸から飛び込む
+  gsap.set('#s1-label', { opacity:0, x:-40 });
+  gsap.set('.s1-sub',   { opacity:0, y:30 });
+  gsap.set('.s1-big .word-inner', { y:'110%', scale:1.4, filter:'blur(8px)' });
+
   gsap.timeline({
-    scrollTrigger:{
-      trigger:'#s1', start:'top bottom', end:'top top',
-      scrub:1, scroller:scroller
-    }
+    scrollTrigger:{ trigger:'#s1', start:'top bottom', end:'top top', scrub:1, scroller:scroller }
   })
-  .to('#s1-label',{opacity:1,y:0,duration:0.3})
-  .to('.s1-big .word-inner',{y:0,duration:0.5,stagger:0.08,ease:'power3.out'},'<0.1')
-  .to('.s1-sub',{opacity:1,y:0,duration:0.3},'<0.3');
+  .to('#s1-label', { opacity:1, x:0, duration:0.2 })
+  .to('.s1-big .word-inner', {
+    y:'0%', scale:1, filter:'blur(0px)',
+    duration:0.4, stagger:0.08, ease:'power3.out'
+  }, '<0.1')
+  .to('.s1-sub', { opacity:1, y:0, duration:0.3 }, '<0.3');
+
+  // S1→S2：テキストがZ軸に吸い込まれる
+  gsap.timeline({
+    scrollTrigger:{ trigger:'#s1', start:'bottom bottom', end:'bottom top', scrub:1, scroller:scroller }
+  })
+  .to('.s1-big', { scale:0.1, opacity:0, filter:'blur(20px)', ease:'power2.in' }, 0)
+  .to('.s1-sub', { opacity:0, y:-40, ease:'power2.in' }, 0)
+  .to('#s1-label', { opacity:0, x:40, ease:'power2.in' }, 0);
 
   // S2
   gsap.set('.s2-header',{y:16});
@@ -487,22 +509,25 @@ function initGSAP(d){
   .to('.req-kinetic',{opacity:1,y:0,scale:1,duration:0.5},'<0.4');
 
   // S5
-  gsap.set('.s5-big',{scale:1.5,filter:'blur(24px) brightness(3)'});
-  gsap.set(['.s5-pre','.s5-body','.s5-ja','.s5-vow','.s5-next'],{y:18});
-  gsap.set('.s5-wings',{scale:0.6});
+  // S5：REVEALはタイトルが宇宙から降ってくる
+  gsap.set('.s5-big',  { scale:15, opacity:0, filter:'blur(60px) brightness(5)', transformOrigin:'center center' });
+  gsap.set('.s5-pre',  { opacity:0, y:30 });
+  gsap.set('.s5-body', { opacity:0, y:30 });
+  gsap.set('.s5-ja',   { opacity:0, letterSpacing:'1em' });
+  gsap.set('.s5-wings',{ scale:0, opacity:0, rotation:-20 });
+  gsap.set('.s5-vow',  { opacity:0, y:20 });
+  gsap.set('.s5-next', { opacity:0, y:20 });
+
   gsap.timeline({
-    scrollTrigger:{
-      trigger:'#s5', start:'top bottom', end:'top top',
-      scrub:1, scroller:scroller
-    }
+    scrollTrigger:{ trigger:'#s5', start:'top bottom', end:'top top', scrub:1, scroller:scroller }
   })
-  .to('.s5-pre',{opacity:1,y:0,duration:0.2})
-  .to('.s5-body',{opacity:1,y:0,duration:0.3},'<0.1')
-  .to('.s5-big',{opacity:1,scale:1,filter:'blur(0px) brightness(1)',duration:0.4},'<0.2')
-  .to('.s5-ja',{opacity:1,y:0,duration:0.3},'<0.3')
-  .to('.s5-wings',{opacity:1,scale:1,duration:0.3},'<0.1')
-  .to('.s5-vow',{opacity:1,duration:0.2},'<0.1')
-  .to('.s5-next',{opacity:1,y:0,duration:0.2},'<0.1');
+  .to('.s5-pre',  { opacity:1, y:0, duration:0.15 })
+  .to('.s5-body', { opacity:1, y:0, duration:0.2 }, '<0.05')
+  .to('.s5-big',  { scale:1, opacity:1, filter:'blur(0px) brightness(1)', duration:0.5, ease:'power4.out' }, '<0.1')
+  .to('.s5-ja',   { opacity:1, letterSpacing:'0.3em', duration:0.3 }, '<0.3')
+  .to('.s5-wings',{ scale:1, opacity:1, rotation:0, duration:0.3, ease:'back.out(2)' }, '<0.1')
+  .to('.s5-vow',  { opacity:1, y:0, duration:0.2 }, '<0.1')
+  .to('.s5-next', { opacity:1, y:0, duration:0.2 }, '<0.05');
 
   ScrollTrigger.refresh();
 }
