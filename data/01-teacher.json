@@ -1,0 +1,123 @@
+{
+  "vol": "01",
+  "slug": "01-teacher",
+  "occupation": "学校の先生",
+  "title_en": "Memory Anchor",
+  "title_ja": "記 憶 定 着 術 師",
+  "classify": "調査兵団極秘文書 — 異能者記録 Vol.01 — 閲覧制限：兵長以上",
+  "vow": "「心臓を捧げよ」 — 知識に。",
+  "parody": "進撃の巨人",
+  "bg_theme": "shingeki",
+  "color_primary": "#5FA870",
+  "color_accent": "#C8A040",
+
+  "mission": {
+    "label": "// Mission Statement · 使命宣言",
+    "headline": ["人類は", "壁の中で", "知識を", "諦めた。"],
+    "headline_accent_from": 2,
+    "body": "しかし<strong>記憶定着術師</strong>だけは違った。チョークという名の<corps>刃</corps>を手に、黒板という名の<danger>巨人</danger>に挑み、35の無垢な魂に真理の刻印を施し続ける——<br>※本人は「ただ授業してるだけです」と言う。"
+  },
+
+  "skills": [
+    {
+      "tag": "壁マリア式 · First Art",
+      "name_en": "Eternal Patience Protocol",
+      "name_ja": "無限忍耐の立体機動",
+      "body": "「なんで勉強しなきゃいけないの」という<em>人類最強の巨人</em>に、<danger>今日で1,247回目</danger>の立体機動を仕掛けても心が折れない精神制御術。"
+    },
+    {
+      "tag": "壁ローゼ式 · Second Art",
+      "name_en": "Omniscient Survey Corps Gaze",
+      "name_ja": "調査兵団式・全知の瞳",
+      "body": "教壇という<em>制高点</em>から35人を同時索敵。誰が眠り、誰が恋文を書き、誰がゲームをしているか全てお見通し。<danger>「バレてないと思ってた？」</danger>"
+    },
+    {
+      "tag": "壁シーナ式 · Third Art",
+      "name_en": "Complexity Transmutation",
+      "name_ja": "難解変換・超大型錬金術",
+      "body": "微分積分という<em>超大型巨人</em>を<corps>10歳の訓練生</corps>が理解できる言語へ変換する禁術。「りんごが落ちる」で相対性理論を語れる者だけが得る称号。"
+    },
+    {
+      "tag": "調査兵団式 · Fourth Art",
+      "name_en": "Silent Aura of Dominion",
+      "name_ja": "リヴァイ兵長式・無言威圧",
+      "body": "<danger>「静かに」すら言わず</danger>ただ見渡すだけで全員が凍りつく固有の気配。習得には<em>最低10年の修練</em>が必要。初心者は大声を出してしまうためすぐバレる。"
+    },
+    {
+      "tag": "討伐遠征式 · Fifth Art",
+      "name_en": "Red Ink Final Judgment",
+      "name_ja": "赤ペン・絶対裁定の儀",
+      "body": "100枚の答案という名の<em>巨人の群れ</em>を一人で討伐する審判の能力。<danger>バツを入れるたびに保護者が「どうしてこんな点数なの」と言っている。</danger>"
+    },
+    {
+      "tag": "最終作戦式 · Sixth Art",
+      "name_en": "50min Temporal Operation",
+      "name_ja": "50分・壁外遠征時空圧縮術",
+      "body": "50分という<em>壁外遠征</em>に宇宙の真理を詰め込む禁術。チャイムという名の<em>撤退命令</em>との戦いは定年退職まで終わらない。<corps>「あと5分で江戸時代が終わる」</corps>"
+    }
+  ],
+
+  "timeline": [
+    {
+      "time": "06:30",
+      "head": "Pre-Mission · 呪文確認",
+      "body": "一般人がまだ夢を見ている時刻。術師は<strong>本日の壁外遠征計画</strong>を確認する。これを「授業の準備」と呼ぶのは<corps>壁の中にいる者だけだ。</corps>"
+    },
+    {
+      "time": "08:30",
+      "head": "Forced Deployment · 強制召集",
+      "body": "ホームルームという名の<strong>出撃命令</strong>。<danger>「起立、礼、着席」——この三語に込められた支配力を、君は知っているか。</danger>"
+    },
+    {
+      "time": "09:00",
+      "head": "Wall Assault · 知識の壁を崩す",
+      "body": "35人中3人が理解し、10人が理解したふりをし、<danger>22人が窓の外を見ている。</danger>それでも術師は止まらない。"
+    },
+    {
+      "time": "12:00",
+      "head": "False Respite · 偽りの休息",
+      "body": "昼休みという名の<danger>幻想の撤退時間。</danger>質問者の列、保護者からの通信、冷めた兵糧。<strong>術師に真の休息は訪れない。</strong>"
+    },
+    {
+      "time": "16:00",
+      "head": "Judgment Command · 赤ペンの裁判",
+      "body": "職員室という名の<strong>司令部</strong>で100枚の討伐報告書と対峙。<corps>エルヴィン団長もかくやという決断力で赤ペンを走らせる。</corps>"
+    },
+    {
+      "time": "23:00",
+      "head": "Next Operation · 明日の遠征設計",
+      "body": "<danger>「今日こそ全員に伝わるはずだ」</danger>——この希望が術師を動かし続ける。<strong>この戦いに、終わりはない。</strong>"
+    }
+  ],
+
+  "requirements": [
+    {
+      "head": "Unbreakable Will · 心臓を捧げる覚悟",
+      "body": "<strong>「なんで勉強しなきゃいけないの」</strong>という巨人に<danger>今日で1,247回目</danger>の立体機動を仕掛けても折れない者。折れた者はすでにこの戦線にいない。"
+    },
+    {
+      "head": "Future Sight · 壁の向こうを信じる眼",
+      "body": "<strong>完全無関心な顔</strong>の訓練生が10年後に「<corps>あの授業のおかげで</corps>」と言うことを信じ続けられる者。信じられない者は壁内守備隊へ。"
+    },
+    {
+      "head": "Infinite Loop · 同じ巨人と何度でも戦う意志",
+      "body": "同じ単元を<strong>同じ熱量で何十年も繰り返す</strong>能力。術師自身が「反復が記憶を定着させる」という真理を体現している。<danger>本人はそれに気づいていない。</danger>"
+    },
+    {
+      "head": "Invisible Reward · 見えない勝利への耐性",
+      "body": "感謝は<danger>10年後に突然届く。</danger>それでもチョークという名の刃を手に取れる者——<strong>それが真の調査兵団員だ。心臓を捧げよ。</strong>"
+    }
+  ],
+
+  "reveal": {
+    "pre_text": "長きにわたり、その正体は<strong>機密指定</strong>であった。<br>調査兵団員、記憶定着術師、魂の番人——<br>様々な異名で呼ばれてきたこの存在の<br>真の名称が、いま明かされる。<br><danger>※ここまで笑った方、正解です。</danger>",
+    "occupation_en": "The Teacher.",
+    "occupation_ja": "要するに：学校の先生です。",
+    "vow": "「心臓を捧げよ」——先生たちは、毎日そうしている。",
+    "next_vol": "02",
+    "next_slug": "02-engineer",
+    "next_name": "虚数空間構築士（エンジニア）"
+  },
+
+  "wings": true
+}
