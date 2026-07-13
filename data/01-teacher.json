@@ -2,7 +2,7 @@
   "vol": "01",
   "slug": "01-teacher",
   "occupation": "学校の先生",
-  "title_en": "Memory Anchor",
+  "title_en": "",
   "title_ja": "記 憶 定 着 術 師",
   "classify": "異能者記録 Vol.01 — Produced by MONJU",
   "vow": "本日、教師に転生しました。",
@@ -75,9 +75,9 @@
 
   "reveal": {
     "pre_text": "長きにわたり、その正体は<strong>機密指定</strong>であった。<br>転生者、術師、魂の番人——<br>真の名称が、いま明かされる。<br><danger>※ここまで笑った方、正解です。</danger>",
-    "occupation_en": "The Teacher.",
+    "occupation_en": "",
     "occupation_ja": "要するに：学校の先生です。",
-    "vow": "先生たちは、毎日転生している。— Produced by MONJU",
+    "vow": "先生たちは、毎日転生している。",
     "next_vol": "02",
     "next_slug": "02-engineer",
     "next_name": "虚数空間構築士（エンジニア）"
