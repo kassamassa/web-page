@@ -4,7 +4,7 @@
   "occupation": "学校の先生",
   "title_en": "Memory Anchor",
   "title_ja": "記 憶 定 着 術 師",
-  "classify": "調査兵団極秘文書 — 異能者記録 Vol.01 — 閲覧制限：兵長以上",
+  "classify": "異能者記録 Vol.01 — Produced by MONJU",
   "vow": "「心臓を捧げよ」 — 知識に。",
   "parody": "進撃の巨人",
   "bg_theme": "shingeki",
@@ -113,7 +113,7 @@
     "pre_text": "長きにわたり、その正体は<strong>機密指定</strong>であった。<br>調査兵団員、記憶定着術師、魂の番人——<br>様々な異名で呼ばれてきたこの存在の<br>真の名称が、いま明かされる。<br><danger>※ここまで笑った方、正解です。</danger>",
     "occupation_en": "The Teacher.",
     "occupation_ja": "要するに：学校の先生です。",
-    "vow": "「心臓を捧げよ」——先生たちは、毎日そうしている。",
+    "vow": "先生たちは、毎日そうしている。— Produced by MONJU",
     "next_vol": "02",
     "next_slug": "02-engineer",
     "next_name": "虚数空間構築士（エンジニア）"
