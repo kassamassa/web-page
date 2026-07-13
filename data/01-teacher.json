@@ -20,39 +20,39 @@
 
   "skills": [
     {
-      "tag": "Unique Skill · I",
-      "name_en": "Eternal Patience",
-      "name_ja": "無限忍耐",
+      "tag": "ユニークスキル Ⅰ",
+      "name_en": "無限忍耐",
+      "name_ja": "むげんにんたい",
       "body": "1,247回目の同じ質問にも笑顔で答える。"
     },
     {
-      "tag": "Unique Skill · II",
-      "name_en": "Omniscient Gaze",
-      "name_ja": "全知の瞳",
+      "tag": "ユニークスキル Ⅱ",
+      "name_en": "全知の瞳",
+      "name_ja": "ぜんちのひとみ",
       "body": "35人全員の状態を同時に把握する。"
     },
     {
-      "tag": "Unique Skill · III",
-      "name_en": "Complexity Break",
-      "name_ja": "難解変換",
+      "tag": "ユニークスキル Ⅲ",
+      "name_en": "難解変換",
+      "name_ja": "なんかいへんかん",
       "body": "どんな難問も10歳の言葉に変換する。"
     },
     {
-      "tag": "Unique Skill · IV",
-      "name_en": "Silent Dominion",
-      "name_ja": "無言支配",
+      "tag": "ユニークスキル Ⅳ",
+      "name_en": "無言支配",
+      "name_ja": "むごんしはい",
       "body": "一瞥で教室全員を制圧する。"
     },
     {
-      "tag": "Unique Skill · V",
-      "name_en": "Red Ink Judgment",
-      "name_ja": "赤ペン裁定",
+      "tag": "ユニークスキル Ⅴ",
+      "name_en": "赤ペン裁定",
+      "name_ja": "あかぺんさいてい",
       "body": "100枚の答案を瞬時に裁く。"
     },
     {
-      "tag": "Unique Skill · VI",
-      "name_en": "50min Compression",
-      "name_ja": "時空圧縮",
+      "tag": "ユニークスキル Ⅵ",
+      "name_en": "時空圧縮",
+      "name_ja": "じくうあっしゅく",
       "body": "50分に宇宙の真理を詰め込む。"
     }
   ],
