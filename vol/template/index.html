@@ -423,6 +423,80 @@ html, body {
 
 @media(max-width:768px){ .s2-grid{ grid-template-columns:repeat(2,1fr); } }
 @media(max-width:500px){ .s2-grid{ grid-template-columns:1fr; } }
+
+/* ── S5 CTA ── */
+.s5-cta {
+  display: block;
+  margin-top: 2.5rem;
+  padding: 1.5rem 2.5rem;
+  border: 1px solid rgba(95,168,112,0.3);
+  font-family: 'Noto Serif JP', serif;
+  font-size: clamp(0.75rem, 1.6vw, 0.95rem);
+  line-height: 1.8;
+  color: var(--dim);
+  text-decoration: none;
+  text-align: center;
+  position: relative; z-index: 2;
+  transition: border-color 0.3s, background 0.3s;
+  max-width: 480px;
+  opacity: 0;
+  background: rgba(6,6,10,0.6);
+  backdrop-filter: blur(8px);
+}
+.s5-cta:hover {
+  border-color: var(--primary);
+  background: rgba(61,107,74,0.08);
+  color: var(--chalk);
+}
+.s5-cta span {
+  display: block;
+  margin-top: 0.4rem;
+  font-family: 'Space Mono', monospace;
+  font-size: 0.7rem;
+  letter-spacing: 0.15em;
+  color: var(--primary);
+}
+
+/* ── MOBILE OPTIMIZATION ── */
+@media (max-width: 768px) {
+  /* S2: スキルカードのテキスト拡大・簡略化 */
+  .s2-grid {
+    grid-template-columns: repeat(2,1fr);
+    margin: 0 1rem 1rem;
+  }
+  .sk { padding: 1.2rem; }
+  .sk-tag  { display: none; }
+  .sk-body { font-size: 0.72rem; line-height: 1.7;
+             display: -webkit-box; -webkit-line-clamp: 3;
+             -webkit-box-orient: vertical; overflow: hidden; }
+
+  /* S3: タイムラインのテキスト削減 */
+  .tl-wrap { margin-top: 4rem; padding: 0 1rem; }
+  .tl-wrap::before { left: 4rem; }
+  .tl-row { grid-template-columns: 4.5rem 1fr; gap: 1rem; margin-bottom: 1.2rem; }
+  .tl-body { display: -webkit-box; -webkit-line-clamp: 2;
+             -webkit-box-orient: vertical; overflow: hidden;
+             font-size: 0.72rem; }
+
+  /* S4: 要件テキスト削減 */
+  .req-row { padding: 1rem 1.2rem; }
+  .req-body { display: -webkit-box; -webkit-line-clamp: 2;
+              -webkit-box-orient: vertical; overflow: hidden;
+              font-size: 0.72rem; }
+
+  /* キネティックテキストをスマホサイズに */
+  .s1-kinetic { font-size: clamp(3rem, 11vw, 6rem); }
+  .s0-en { font-size: clamp(3.5rem, 14vw, 7rem); }
+  .s5-big { font-size: clamp(3rem, 13vw, 7rem); }
+
+  /* S1のラベルをスマホ用に */
+  .s1-label { top: 1.5rem; left: 1.5rem; }
+  .s3-label { top: 1.5rem; left: 1.5rem; }
+  .s4-label { top: 1.5rem; left: 1.5rem; }
+
+  /* グリッドを1列に */
+  .s2-grid { grid-template-columns: 1fr; }
+}
 </style>
 </head>
 <body>
@@ -560,6 +634,10 @@ function buildDOM(d){
     <p class="s5-vow">${d.reveal.vow}</p>
     <a class="s5-next" href="/vol/${d.reveal.next_slug}/">
       Next Vol.${d.reveal.next_vol} · ${d.reveal.next_name}
+    </a>
+    <a class="s5-cta" href="https://monju.dev" target="_blank">
+      凡庸な日常を、心揺さぶる物語に変える。<br>
+      <span>Web制作のご相談はこちら →</span>
     </a>
   </div>`;
 }
@@ -788,7 +866,7 @@ function initGSAP(d){
   gsap.set('.s5-ja',   { opacity:0, letterSpacing:'1.5em' });
   gsap.set('.s5-wings',{ scale:0, opacity:0, rotation:-25 });
   gsap.set('.s5-vow',  { opacity:0, y:20 });
-  gsap.set('.s5-next', { opacity:0, y:20 });
+  gsap.set(['.s5-next', '.s5-cta'], { opacity:0, y:20 });
 
   gsap.timeline({
     scrollTrigger:{ trigger:'#s5', start:'top bottom', end:'top top', scrub:1.2 }
@@ -799,7 +877,8 @@ function initGSAP(d){
   .to('.s5-ja',   { opacity:1, letterSpacing:'0.3em', duration:0.3 }, '<0.35')
   .to('.s5-wings',{ scale:1, opacity:1, rotation:0, duration:0.25, ease:'back.out(2)' }, '<0.1')
   .to('.s5-vow',  { opacity:1, y:0, duration:0.2 }, '<0.1')
-  .to('.s5-next', { opacity:1, y:0, duration:0.2 }, '<0.05');
+  .to('.s5-next', { opacity:1, y:0, duration:0.2 }, '<0.05')
+  .to('.s5-cta',  { opacity:1, y:0, duration:0.3 }, '<0.1');
 
   // Wings float loop
   gsap.to('.s5-wings', { y:-8, duration:2, ease:'sine.inOut', yoyo:true, repeat:-1, delay:2 });
