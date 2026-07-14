@@ -982,6 +982,198 @@ html, body {
   border-radius:50%;
   border:1px solid rgba(241,196,15,0.2);
 }
+
+/* ────────────────────────────
+   JOJO4 MANGA STYLE OVERLAYS
+──────────────────────────── */
+
+/* スクリーントーン（網点ドット）オーバーレイ */
+.jojo-tone {
+  position:absolute; inset:0; z-index:1; pointer-events:none;
+  background-image: radial-gradient(circle, rgba(0,0,0,0.18) 1px, transparent 1px);
+  background-size: 6px 6px;
+  mix-blend-mode: multiply;
+}
+
+/* 漫画コマ枠（太い黒縁 + 内側白線） */
+.jojo-frame {
+  position:absolute; inset:6px; z-index:2; pointer-events:none;
+  border:4px solid #000;
+  box-shadow: inset 0 0 0 2px #fff,
+              inset 0 0 0 5px #000;
+}
+
+/* 擬音語（ドドド/ゴゴゴ）大文字 */
+.jojo-sfx {
+  position:absolute; z-index:3; pointer-events:none;
+  font-family:'Noto Serif JP',serif;
+  font-weight:900;
+  color:transparent;
+  -webkit-text-stroke: 3px #000;
+  paint-order: stroke fill;
+  line-height:1;
+  user-select:none;
+}
+.jojo-sfx.sfx-dodo {
+  font-size: clamp(3rem,10vw,7rem);
+  bottom: 2rem; right: -0.2em;
+  letter-spacing:-0.06em;
+  transform: rotate(-8deg);
+  color:rgba(155,89,182,0.12);
+  -webkit-text-stroke: 2px rgba(155,89,182,0.4);
+}
+.jojo-sfx.sfx-gogo {
+  font-size: clamp(2.5rem,8vw,5.5rem);
+  top: 1.5rem; left: -0.1em;
+  letter-spacing:-0.04em;
+  transform: rotate(6deg);
+  color:rgba(0,0,0,0.06);
+  -webkit-text-stroke: 2px rgba(0,0,0,0.25);
+}
+.jojo-sfx.sfx-menu {
+  font-size: clamp(2rem,6vw,4rem);
+  bottom: 1.5rem; left: 0.5rem;
+  transform: rotate(-4deg);
+  color:rgba(241,196,15,0.15);
+  -webkit-text-stroke: 2px rgba(0,0,0,0.3);
+}
+.jojo-sfx.sfx-baki {
+  font-size: clamp(3rem,12vw,9rem);
+  top:50%; left:50%;
+  transform:translate(-50%,-50%) rotate(-12deg);
+  color:rgba(155,89,182,0.08);
+  -webkit-text-stroke: 3px rgba(0,0,0,0.2);
+  white-space:nowrap;
+}
+
+/* ダイヤモンドマーク（♦ Part4シンボル） */
+.jojo-diamond {
+  position:absolute; z-index:3; pointer-events:none;
+  font-size:1.2rem; color:#F1C40F;
+  text-shadow: 0 0 8px rgba(241,196,15,0.6);
+  letter-spacing:0.4em;
+}
+.jojo-diamond.dia-tl { top:1.5rem; left:1.5rem; }
+.jojo-diamond.dia-br { bottom:1.5rem; right:1.5rem; }
+
+/* ハッチング（斜線影） */
+.jojo-hatch {
+  position:absolute; inset:0; z-index:1; pointer-events:none;
+  background-image: repeating-linear-gradient(
+    -45deg,
+    transparent,
+    transparent 8px,
+    rgba(0,0,0,0.04) 8px,
+    rgba(0,0,0,0.04) 9px
+  );
+}
+
+/* S2 スキルカード — 漫画コマ風 */
+.jojo4-slide #s2 .sk,
+.jojo4-slide.s2-active .sk {
+  border: 3px solid #000 !important;
+  box-shadow: 4px 4px 0 #000 !important;
+  background: #fff !important;
+  color: #000 !important;
+  position:relative;
+  overflow:hidden;
+}
+.jojo4-slide #s2 .sk::before {
+  content:'';
+  position:absolute; inset:0;
+  background-image: radial-gradient(circle, rgba(0,0,0,0.12) 1px, transparent 1px);
+  background-size:5px 5px;
+  pointer-events:none;
+}
+.sk.jojo-card {
+  border: 3px solid #000 !important;
+  box-shadow: 5px 5px 0 #000 !important;
+  background: #fff !important;
+  position:relative;
+  overflow:hidden;
+}
+.sk.jojo-card::before {
+  content:'';
+  position:absolute; inset:0;
+  background-image: radial-gradient(circle, rgba(0,0,0,0.1) 1px, transparent 1px);
+  background-size:5px 5px;
+  pointer-events:none;
+}
+.sk.jojo-card .sk-tag  { color:#9B59B6 !important; font-weight:900; }
+.sk.jojo-card .sk-name { color:#000 !important;
+  -webkit-text-stroke:1px #000;
+  text-shadow: 2px 2px 0 rgba(155,89,182,0.3);
+}
+.sk.jojo-card .sk-ja   { color:#555 !important; }
+.sk.jojo-card .sk-body { color:#222 !important; }
+.sk.jojo-card .sk-acquired {
+  background:#000 !important; color:#F1C40F !important;
+  border:none !important;
+  font-weight:900;
+}
+
+/* S4 req-head — 漫画タイトル文字風 */
+.jojo4-req .req-head {
+  -webkit-text-stroke: 2px #000;
+  paint-order: stroke fill;
+  text-shadow: 3px 3px 0 rgba(155,89,182,0.4),
+               5px 5px 0 rgba(0,0,0,0.2);
+}
+.jojo4-req .req-num {
+  color: #F1C40F;
+  -webkit-text-stroke: 2px #000;
+  text-shadow: 2px 2px 0 #000;
+}
+.jojo4-req .req-kinetic {
+  -webkit-text-stroke: 1px rgba(255,255,255,0.3);
+}
+
+/* S5 big text — 漫画タイトル風 */
+.jojo4-reveal .s5-big {
+  -webkit-text-stroke: 2px #000;
+  paint-order: stroke fill;
+  text-shadow: 4px 4px 0 #9B59B6, 8px 8px 0 rgba(0,0,0,0.3);
+  letter-spacing:0.05em;
+}
+.jojo4-reveal .s5-ja {
+  -webkit-text-stroke: 1px rgba(0,0,0,0.5);
+}
+.jojo4-reveal .s5-pre {
+  color: #F1C40F;
+  -webkit-text-stroke: 1px #000;
+}
+
+/* S0 title — アウトライン文字 */
+.jojo4-title .s0-ja {
+  -webkit-text-stroke: 2px #9B59B6;
+  paint-order: stroke fill;
+  text-shadow: 3px 3px 0 #000, 6px 6px 0 rgba(155,89,182,0.3);
+}
+.jojo4-title .s0-vow {
+  background: #F1C40F;
+  color: #000 !important;
+  padding: 0.3em 0.8em;
+  border: 2px solid #000;
+  box-shadow: 3px 3px 0 #000;
+  display:inline-block;
+}
+
+/* S1 MISSION — 黒背景でよく見えるよう調整 */
+.jojo4-mission .s1-kinetic .line-inner:not(.accent) {
+  -webkit-text-stroke: 1px #000;
+}
+.jojo4-mission .s1-label {
+  font-weight:900;
+  letter-spacing:0.2em;
+}
+
+/* モバイル */
+@media(max-width:768px){
+  .jojo-sfx.sfx-dodo { font-size:clamp(2rem,8vw,4rem); }
+  .jojo-sfx.sfx-gogo { font-size:clamp(1.8rem,6vw,3rem); }
+  .jojo-sfx.sfx-baki { font-size:clamp(2.5rem,10vw,6rem); }
+  .jojo-frame { inset:3px; border-width:3px; }
+}
 </style>
 </head>
 <body>
@@ -1036,13 +1228,22 @@ function buildDOM(d){
   const isTensura = d.bg_theme === 'tensura';
   const isJojo4   = d.bg_theme === 'jojo4';
 
+  // jojo4共通オーバーレイ（スクリーントーン・コマ枠・ダイヤモンド）
+  const jojoOverlay = isJojo4 ? `
+    <div class="jojo-tone"></div>
+    <div class="jojo-frame"></div>
+    <div class="jojo-diamond dia-tl">♦ ♦ ♦</div>
+    <div class="jojo-diamond dia-br">♦ ♦ ♦</div>` : '';
+
   const slides = document.getElementById('slides');
   slides.innerHTML = `
 
   <!-- S0: TITLE -->
-  <div class="slide" id="s0">
+  <div class="slide jojo4-title" id="s0">
     ${isTensura ? `<div class="bg-tensura-s0"><canvas id="cv-s0"></canvas></div>` : ''}
     ${isJojo4   ? `<div class="bg-jojo-s0"><canvas id="cv-s0"></canvas></div>` : ''}
+    ${jojoOverlay}
+    ${isJojo4   ? `<div class="jojo-sfx sfx-dodo">ドドドドドドド</div>` : ''}
     <p class="s-classify">${d.classify}</p>
     ${d.title_en ? `<h1 class="s0-en">${d.title_en.replace(' ','<br>')}</h1>` : ''}
     <p class="s0-ja">${d.title_ja}</p>
@@ -1050,9 +1251,11 @@ function buildDOM(d){
   </div>
 
   <!-- S1: MISSION -->
-  <div class="slide" id="s1">
+  <div class="slide jojo4-mission" id="s1">
     ${isTensura ? `<div class="bg-wall"><div class="wall-blocks"></div><div class="wall-glow"></div></div>` : ''}
     ${isJojo4   ? `<div class="bg-jojo-s1"><canvas id="cv-s1"></canvas></div>` : ''}
+    ${isJojo4   ? `<div class="jojo-hatch"></div><div class="jojo-frame"></div>` : ''}
+    ${isJojo4   ? `<div class="jojo-diamond dia-tl">♦ ♦ ♦</div>` : ''}
     <p class="s1-label">// ${isTensura ? '転生記録' : '覚醒記録'}</p>
     <div class="s1-scene">
       <div class="s1-kinetic" id="s1-kinetic">
@@ -1073,13 +1276,14 @@ function buildDOM(d){
       <div class="jojo-panel-3"></div>
       <div class="jojo-dodo-bg">ドドドドドドドドドド</div>
     </div>` : ''}
+    ${isJojo4   ? `<div class="jojo-sfx sfx-gogo">ゴゴゴゴゴゴゴ</div>` : ''}
     <div class="s2-header">
       <span class="s2-eyebrow">${isTensura ? '// ステータスウィンドウ' : '// スタンド能力'}</span>
       <span class="s2-title">${isTensura ? '取 得 ス キ ル 一 覧' : 'ス タ ン ド 能 力 一 覧'}</span>
     </div>
     <div class="s2-grid">
       ${d.skills.map((s,i)=>`
-      <div class="sk">
+      <div class="sk${isJojo4 ? ' jojo-card' : ''}">
         <p class="sk-tag">${s.tag}</p>
         <p class="sk-name">${s.name_en}</p>
         <p class="sk-ja">${s.name_ja}</p>
@@ -1093,6 +1297,9 @@ function buildDOM(d){
   <div class="slide" id="s3">
     ${isTensura ? `<div class="bg-tensura-s3"><div class="log-lines"></div><div class="log-glow"></div></div>` : ''}
     ${isJojo4   ? `<div class="bg-jojo-s3"><canvas id="cv-s3"></canvas></div>` : ''}
+    ${isJojo4   ? `<div class="jojo-tone"></div><div class="jojo-frame"></div>
+      <div class="jojo-sfx sfx-menu">ザワ…ザワ…</div>
+      <div class="jojo-diamond dia-br">♦ ♦ ♦</div>` : ''}
     <p class="s3-label">// ${isTensura ? '冒険記録' : '覚醒の記録'}</p>
     <div class="tl-wrap">
       ${d.timeline.map(t=>`
@@ -1107,9 +1314,11 @@ function buildDOM(d){
   </div>
 
   <!-- S4: REQUIREMENTS -->
-  <div class="slide" id="s4">
+  <div class="slide jojo4-req" id="s4">
     ${isTensura ? `<div class="bg-tensura-s4"></div>` : ''}
     ${isJojo4   ? `<div class="bg-jojo-s4"><canvas id="cv-s4"></canvas></div>` : ''}
+    ${jojoOverlay}
+    ${isJojo4   ? `<div class="jojo-sfx sfx-baki">ゴゴゴゴゴ</div>` : ''}
     <p class="s4-label">// ${isTensura ? '種族進化条件' : 'スタンド使い適性'}</p>
     <div class="req-stack">
       ${d.requirements.map((r,i)=>`
@@ -1122,13 +1331,15 @@ function buildDOM(d){
   </div>
 
   <!-- S5: REVEAL -->
-  <div class="slide" id="s5">
+  <div class="slide jojo4-reveal" id="s5">
     ${isTensura ? `<div class="bg-tensura-s5"><div class="portal-ring"></div><div class="portal-ring-2"></div></div>` : ''}
     ${isJojo4   ? `<div class="bg-jojo-s5">
       <canvas id="cv-s5"></canvas>
       <div class="jojo-stand-ring"></div>
       <div class="jojo-stand-ring-2"></div>
     </div>` : ''}
+    ${jojoOverlay}
+    ${isJojo4   ? `<div class="jojo-sfx sfx-dodo">やれやれだぜ</div>` : ''}
     <p class="s5-pre">// 正体判明</p>
     <p class="s5-body">${parseTags(d.reveal.pre_text)}</p>
     <p class="s5-big">${d.reveal.occupation_en}</p>
