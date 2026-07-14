@@ -1174,6 +1174,181 @@ html, body {
   .jojo-sfx.sfx-baki { font-size:clamp(2.5rem,10vw,6rem); }
   .jojo-frame { inset:3px; border-width:3px; }
 }
+
+/* ────────────────────────────
+   JOJO4 S2: マンガパネル縦型スキルレイアウト
+──────────────────────────── */
+.s2-jojo-grid {
+  display:flex; flex-direction:column; gap:0.6rem;
+  padding:1rem 2rem 1.5rem; width:100%; max-width:780px;
+  margin:0 auto; overflow-y:auto; position:relative; z-index:5;
+}
+.jojo-skill-row {
+  display:grid;
+  grid-template-columns:4rem 1fr 3.2rem;
+  align-items:stretch;
+  border:3px solid #000;
+  box-shadow:5px 5px 0 #000;
+  background:#fff;
+  position:relative; overflow:hidden;
+}
+.jojo-skill-row::after {
+  content:'';
+  position:absolute; inset:0; pointer-events:none;
+  background-image:radial-gradient(circle,rgba(0,0,0,0.1) 1px,transparent 1px);
+  background-size:5px 5px;
+}
+.jsr-num {
+  background:#000; color:#F1C40F;
+  font-size:1.6rem; font-weight:900;
+  font-family:'Noto Serif JP',serif;
+  display:flex; align-items:center; justify-content:center;
+  border-right:3px solid #000;
+  -webkit-text-stroke:1px #F1C40F;
+  min-height:4.5rem;
+}
+.jsr-body {
+  padding:0.55rem 0.8rem; position:relative; z-index:1;
+}
+.jsr-tag {
+  font-size:0.6rem; font-weight:900; color:#9B59B6;
+  letter-spacing:0.1em; text-transform:uppercase; display:block;
+  margin-bottom:0.15rem;
+}
+.jsr-name {
+  font-size:clamp(0.95rem,2.5vw,1.35rem); font-weight:900;
+  color:#000; font-family:'Noto Serif JP',serif; line-height:1.2;
+  -webkit-text-stroke:0.5px #000;
+}
+.jsr-sub {
+  font-size:0.72rem; color:#555; margin-top:0.25rem; line-height:1.4;
+}
+.jsr-badge {
+  background:#9B59B6; color:#fff;
+  font-size:0.58rem; font-weight:900;
+  writing-mode:vertical-rl; text-orientation:mixed;
+  letter-spacing:0.15em;
+  display:flex; align-items:center; justify-content:center;
+  border-left:3px solid #000;
+  position:relative; z-index:1;
+}
+
+/* ────────────────────────────
+   JOJO4 S3: タイムライン強調
+──────────────────────────── */
+.jojo4-tl .tl-wrap { gap:0.5rem; }
+.jojo4-tl .tl-row {
+  border:3px solid #000 !important;
+  box-shadow:4px 4px 0 #000 !important;
+  background:rgba(0,0,0,0.35) !important;
+  padding:0.5rem 0.8rem !important;
+  position:relative;
+}
+.jojo4-tl .tl-row::before { display:none !important; }
+.jojo4-tl .tl-t {
+  font-size:clamp(1.2rem,3.5vw,2rem) !important;
+  font-weight:900 !important; font-family:'Noto Serif JP',serif !important;
+  color:#000 !important; background:#F1C40F !important;
+  padding:0 0.35em !important; border:2px solid #000 !important;
+  box-shadow:2px 2px 0 #000 !important;
+  -webkit-text-stroke:0 !important;
+  min-width:4.5rem !important; text-align:center !important;
+  flex-shrink:0;
+}
+.jojo4-tl .tl-head {
+  font-size:clamp(1.1rem,3vw,1.8rem) !important;
+  color:#fff !important; font-weight:900 !important;
+  -webkit-text-stroke:1px #000 !important;
+  text-shadow:2px 2px 0 #000 !important;
+}
+.jojo4-tl .tl-body { color:rgba(255,255,255,0.85) !important; }
+
+/* ────────────────────────────
+   JOJO4 S4: セリフ（名言）大爆発
+──────────────────────────── */
+.jojo4-req .req-kinetic {
+  font-size:clamp(1.8rem,5vw,3.5rem) !important;
+  font-family:'Noto Serif JP',serif !important;
+  font-weight:900 !important;
+  color:#F1C40F !important;
+  -webkit-text-stroke:2px #000 !important;
+  paint-order:stroke fill !important;
+  text-shadow:3px 3px 0 #000, 6px 6px 0 rgba(155,89,182,0.5) !important;
+  background:#000 !important;
+  border:4px solid #F1C40F !important;
+  box-shadow:6px 6px 0 #9B59B6, 10px 10px 0 #000 !important;
+  padding:0.6em 1em !important;
+  display:block !important; text-align:center !important;
+  margin-top:1.5rem !important;
+  position:relative; z-index:10;
+  letter-spacing:0.05em;
+}
+.jojo4-req .req-kinetic::before {
+  content:'— セリフ —';
+  display:block; font-size:0.45em;
+  color:rgba(241,196,15,0.6); letter-spacing:0.4em;
+  margin-bottom:0.3em; -webkit-text-stroke:0 !important;
+  text-shadow:none !important;
+}
+
+/* ────────────────────────────
+   JOJO4 S5: 答え合わせ 大ゴマ演出
+──────────────────────────── */
+.jojo4-reveal .s5-pre {
+  font-size:clamp(0.8rem,2vw,1.1rem) !important;
+  color:#F1C40F !important; background:#000 !important;
+  padding:0.25em 1em !important; border:2px solid #F1C40F !important;
+  display:inline-block !important; letter-spacing:0.25em !important;
+  margin-bottom:0.8rem !important;
+}
+.jojo4-reveal .s5-body {
+  font-size:clamp(0.78rem,1.5vw,0.95rem) !important;
+  max-width:480px; text-align:center;
+}
+.jojo4-reveal .s5-big { display:none !important; }
+.jojo4-reveal .s5-ja {
+  font-size:clamp(2rem,6.5vw,5rem) !important;
+  font-weight:900 !important;
+  font-family:'Noto Serif JP',serif !important;
+  color:#F1C40F !important;
+  -webkit-text-stroke:3px #000 !important;
+  paint-order:stroke fill !important;
+  text-shadow:4px 4px 0 #000, 8px 8px 0 #9B59B6 !important;
+  background:#fff !important;
+  border:5px solid #000 !important;
+  box-shadow:8px 8px 0 #9B59B6, 14px 14px 0 #000 !important;
+  padding:0.3em 0.7em !important;
+  display:inline-block !important;
+  position:relative !important; z-index:10 !important;
+  margin:0.5rem 0 !important;
+}
+.jojo4-reveal .s5-vow {
+  font-size:clamp(0.9rem,2.2vw,1.4rem) !important;
+  font-weight:900 !important;
+  color:#9B59B6 !important;
+  -webkit-text-stroke:1px #000 !important;
+  text-shadow:2px 2px 0 #000 !important;
+  background:#000 !important;
+  padding:0.3em 0.8em !important;
+  display:inline-block !important;
+  border:2px solid #9B59B6 !important;
+  letter-spacing:0.1em !important;
+}
+.jojo4-reveal .s5-next {
+  background:#9B59B6 !important;
+  color:#fff !important;
+  border:3px solid #000 !important;
+  box-shadow:4px 4px 0 #000 !important;
+  font-weight:900 !important;
+}
+
+@media(max-width:768px){
+  .s2-jojo-grid { padding:0.8rem 1rem; gap:0.5rem; }
+  .jojo-skill-row { grid-template-columns:3rem 1fr 2.5rem; }
+  .jsr-num { font-size:1.2rem; min-height:3.5rem; }
+  .jojo4-reveal .s5-ja { font-size:clamp(1.5rem,8vw,3rem) !important; }
+  .jojo4-req .req-kinetic { font-size:clamp(1.3rem,5vw,2.2rem) !important; }
+}
 </style>
 </head>
 <body>
@@ -1245,7 +1420,6 @@ function buildDOM(d){
     ${jojoOverlay}
     ${isJojo4   ? `<div class="jojo-sfx sfx-dodo">ドドドドドドド</div>` : ''}
     <p class="s-classify">${d.classify}</p>
-    ${d.title_en ? `<h1 class="s0-en">${d.title_en.replace(' ','<br>')}</h1>` : ''}
     <p class="s0-ja">${d.title_ja}</p>
     <p class="s0-vow">${d.vow}</p>
   </div>
@@ -1276,32 +1450,44 @@ function buildDOM(d){
       <div class="jojo-panel-3"></div>
       <div class="jojo-dodo-bg">ドドドドドドドドドド</div>
     </div>` : ''}
-    ${isJojo4   ? `<div class="jojo-sfx sfx-gogo">ゴゴゴゴゴゴゴ</div>` : ''}
     <div class="s2-header">
       <span class="s2-eyebrow">${isTensura ? '// ステータスウィンドウ' : '// スタンド能力'}</span>
       <span class="s2-title">${isTensura ? '取 得 ス キ ル 一 覧' : 'ス タ ン ド 能 力 一 覧'}</span>
     </div>
+    ${isTensura ? `
     <div class="s2-grid">
-      ${d.skills.map((s,i)=>`
-      <div class="sk${isJojo4 ? ' jojo-card' : ''}">
+      ${d.skills.map(s=>`
+      <div class="sk">
         <p class="sk-tag">${s.tag}</p>
         <p class="sk-name">${s.name_en}</p>
         <p class="sk-ja">${s.name_ja}</p>
         <p class="sk-body">${parseTags(s.body)}</p>
-        <div class="sk-acquired">${isTensura ? '取得済み ✓' : '発現済み ✓'}</div>
+        <div class="sk-acquired">取得済み ✓</div>
       </div>`).join('')}
-    </div>
+    </div>` : ''}
+    ${isJojo4 ? `
+    <div class="s2-jojo-grid">
+      ${d.skills.map((s,i)=>`
+      <div class="jojo-skill-row">
+        <div class="jsr-num">${['Ⅰ','Ⅱ','Ⅲ','Ⅳ','Ⅴ','Ⅵ'][i]}</div>
+        <div class="jsr-body">
+          <span class="jsr-tag">${s.tag}</span>
+          <p class="jsr-name">${s.name_en}／${s.name_ja}</p>
+          <p class="jsr-sub">${parseTags(s.body)}</p>
+        </div>
+        <div class="jsr-badge">発現済み ✓</div>
+      </div>`).join('')}
+    </div>` : ''}
   </div>
 
   <!-- S3: TIMELINE -->
   <div class="slide" id="s3">
     ${isTensura ? `<div class="bg-tensura-s3"><div class="log-lines"></div><div class="log-glow"></div></div>` : ''}
     ${isJojo4   ? `<div class="bg-jojo-s3"><canvas id="cv-s3"></canvas></div>` : ''}
-    ${isJojo4   ? `<div class="jojo-tone"></div><div class="jojo-frame"></div>
-      <div class="jojo-sfx sfx-menu">ザワ…ザワ…</div>
+    ${isJojo4   ? `<div class="jojo-sfx sfx-menu">ザワ…ザワ…</div>
       <div class="jojo-diamond dia-br">♦ ♦ ♦</div>` : ''}
     <p class="s3-label">// ${isTensura ? '冒険記録' : '覚醒の記録'}</p>
-    <div class="tl-wrap">
+    <div class="tl-wrap${isJojo4 ? ' jojo4-tl' : ''}">
       ${d.timeline.map(t=>`
       <div class="tl-row">
         <span class="tl-t">${t.time}</span>
@@ -1327,7 +1513,7 @@ function buildDOM(d){
         <div><p class="req-head">${r.head}</p><p class="req-body">${parseTags(r.body)}</p></div>
       </div>`).join('')}
     </div>
-    <p class="req-kinetic">— ${d.vow}</p>
+    <p class="req-kinetic">${d.vow}</p>
   </div>
 
   <!-- S5: REVEAL -->
