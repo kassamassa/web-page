@@ -20,6 +20,7 @@ export default function VolPage({ data }: { data: VolData }) {
   const slideNumRef  = useRef<HTMLDivElement>(null)
   const scrollHintRef= useRef<HTMLDivElement>(null)
   const scrollerRef  = useRef<HTMLDivElement>(null)
+  const loadingRef   = useRef<HTMLDivElement>(null)
 
   // set CSS vars
   useEffect(() => {
@@ -143,18 +144,32 @@ export default function VolPage({ data }: { data: VolData }) {
 
       ScrollTrigger.refresh()
 
+      // ローディング非表示
+      setTimeout(() => {
+        if (loadingRef.current) {
+          loadingRef.current.style.opacity = '0'
+          loadingRef.current.style.pointerEvents = 'none'
+        }
+      }, 500)
+
       cleanup = () => {
         ScrollTrigger.getAll().forEach(t => t.kill())
         scroller.removeEventListener('scroll', ScrollTrigger.update)
       }
-    })()
+    })().catch(() => {
+      // GSAP失敗時もローディングを消す
+      if (loadingRef.current) {
+        loadingRef.current.style.opacity = '0'
+        loadingRef.current.style.pointerEvents = 'none'
+      }
+    })
 
     return () => cleanup?.()
   }, [data])
 
   return (
     <>
-      <div className={styles.loading} id="loading">
+      <div ref={loadingRef} className={styles.loading} style={{ transition: 'opacity 0.6s' }}>
         <span>DECRYPTING...</span>
       </div>
       <div ref={progressRef} className={styles.progress} />
