@@ -120,11 +120,9 @@ export default function VolPage({ data }: { data: VolData }) {
 
       /* S4 enter */
       gsap.set('.s4-label',   { opacity:0, x:-40 })
-      gsap.set('.req-kinetic',{ opacity:0, scale:0.4 })
       gsap.timeline({ scrollTrigger:{ trigger:'#s4', start:'top bottom', end:'top top', scrub:1.2 } })
         .to('.s4-label',   { opacity:1, x:0, duration:0.2 })
         .to('.req-row',    { opacity:1, x:0, duration:0.35, stagger:0.08, ease:'power2.out' }, '<0.15')
-        .to('.req-kinetic',{ opacity:1, scale:1, duration:0.4, ease:'elastic.out(1,.7)' }, '<0.5')
 
       /* S5 enter */
       gsap.set('.s5-big',  { scale:20, opacity:0, filter:'blur(80px) brightness(6)' })
