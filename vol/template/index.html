@@ -685,6 +685,97 @@ html, body {
   transform:scale(0.8);
 }
 
+/* ════════════════════════════
+   JOJO4 THEME BACKGROUNDS
+════════════════════════════ */
+
+/* S0: 紫の粒子・金のオーラ */
+.bg-jojo4-s0 {
+  position:absolute; inset:0; z-index:0;
+  background: radial-gradient(ellipse 80% 60% at 50% 40%,
+    rgba(155,89,182,0.18) 0%, transparent 65%),
+    linear-gradient(180deg, #06040A 0%, #130820 60%, #06040A 100%);
+}
+.bg-jojo4-s0 canvas { position:absolute; inset:0; width:100%; height:100%; }
+
+/* S1: 杜王町・石畳グリッド */
+.bg-jojo4-s1 {
+  position:absolute; inset:0; z-index:0;
+  background: #080610;
+}
+.jojo-grid {
+  position:absolute; inset:0;
+  background-image:
+    linear-gradient(rgba(155,89,182,0.07) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(155,89,182,0.07) 1px, transparent 1px);
+  background-size: 60px 60px;
+}
+.jojo-glow {
+  position:absolute; inset:0;
+  background: radial-gradient(ellipse 60% 50% at 50% 40%,
+    rgba(155,89,182,0.12), transparent 70%);
+}
+
+/* S2: スタンドオーラグリッド */
+.bg-jojo4-s2 {
+  position:absolute; inset:0; z-index:0;
+  background: #04020A;
+}
+.stand-grid {
+  position:absolute; inset:0;
+  background-image:
+    linear-gradient(rgba(155,89,182,0.08) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(155,89,182,0.08) 1px, transparent 1px);
+  background-size: 40px 40px;
+}
+.stand-glow {
+  position:absolute; inset:0;
+  background: radial-gradient(ellipse 70% 50% at 50% 50%,
+    rgba(155,89,182,0.1), transparent 70%);
+}
+
+/* S3: 鏡・縦ライン */
+.bg-jojo4-s3 {
+  position:absolute; inset:0; z-index:0;
+  background: linear-gradient(180deg, #06040A 0%, #0E0618 50%, #06040A 100%);
+}
+.mirror-lines {
+  position:absolute; inset:0;
+  background-image:
+    linear-gradient(90deg, transparent 12rem, rgba(155,89,182,0.08) 12rem, rgba(155,89,182,0.08) calc(12rem + 1px), transparent calc(12rem + 1px));
+}
+
+/* S4: 黒×金の重厚感 */
+.bg-jojo4-s4 {
+  position:absolute; inset:0; z-index:0;
+  background: radial-gradient(ellipse 60% 50% at 50% 50%,
+    rgba(241,196,15,0.07), transparent 70%),
+    #04020A;
+}
+
+/* S5: ハサミシルエット・黒板風 */
+.bg-jojo4-s5 {
+  position:absolute; inset:0; z-index:0;
+  background: radial-gradient(ellipse 80% 70% at 50% 50%,
+    #120820, #04020A);
+}
+.jojo-portal {
+  position:absolute; top:50%; left:50%;
+  transform:translate(-50%,-50%);
+  width:min(55vw,55vh); height:min(55vw,55vh);
+  border-radius:50%;
+  border:1px solid rgba(155,89,182,0.2);
+  box-shadow: 0 0 60px rgba(155,89,182,0.1),
+              inset 0 0 60px rgba(155,89,182,0.05);
+}
+.jojo-portal-2 {
+  position:absolute; top:50%; left:50%;
+  transform:translate(-50%,-50%);
+  width:min(40vw,40vh); height:min(40vw,40vh);
+  border-radius:50%;
+  border:1px solid rgba(241,196,15,0.12);
+}
+
 /* ── S5 CTA ── */
 .s5-cta {
   display: block;
@@ -838,12 +929,31 @@ function buildDOM(d){
   document.documentElement.style.setProperty('--primary', d.color_primary);
   document.documentElement.style.setProperty('--accent',  d.color_accent);
 
+  const th = d.bg_theme || 'tensura';
+  const bg = {
+    s0: th==='jojo4'
+      ? `<div class="bg-jojo4-s0"><canvas id="cv-s0"></canvas></div>`
+      : `<div class="bg-tensura-s0"><canvas id="cv-s0"></canvas></div>`,
+    s2: th==='jojo4'
+      ? `<div class="bg-jojo4-s2"><div class="jojo-grid"></div><div class="stand-grid"></div></div>`
+      : `<div class="bg-tensura-s2"><div class="status-grid"></div><div class="status-glow"></div></div>`,
+    s3: th==='jojo4'
+      ? `<div class="bg-jojo4-s3"><div class="mirror-lines"></div></div>`
+      : `<div class="bg-tensura-s3"><div class="log-lines"></div></div>`,
+    s4: th==='jojo4'
+      ? `<div class="bg-jojo4-s4"></div>`
+      : `<div class="bg-tensura-s4"></div>`,
+    s5: th==='jojo4'
+      ? `<div class="bg-jojo4-s5"><div class="jojo-portal"></div><div class="jojo-portal-2"></div></div>`
+      : `<div class="bg-tensura-s5"><div class="portal-ring"></div><div class="portal-ring-2"></div></div>`,
+  };
+
   const slides = document.getElementById('slides');
   slides.innerHTML = `
 
   <!-- S0: TITLE -->
   <div class="slide" id="s0">
-    <div class="bg-tensura-s0"><canvas id="cv-s0"></canvas></div>
+    ${bg.s0}
     <p class="s-classify">${d.classify}</p>
     <h1 class="s0-en">${d.title_ja}</h1>
     ${d.title_en ? `<p class="s0-ja">${d.title_en}</p>` : ''}
@@ -853,7 +963,7 @@ function buildDOM(d){
   <!-- S1: MISSION -->
   <div class="slide" id="s1">
     <div class="bg-wall"><div class="wall-blocks"></div><div class="wall-glow"></div></div>
-    <p class="s1-label">// 転生記録</p>
+    <p class="s1-label">${d.mission.label}</p>
     <div class="s1-scene">
       <div class="s1-kinetic" id="s1-kinetic">
         ${d.mission.headline.map((w,i)=>
@@ -866,7 +976,7 @@ function buildDOM(d){
 
   <!-- S2: SKILLS (ステータス画面) -->
   <div class="slide" id="s2">
-    <div class="bg-tensura-s2"><div class="status-grid"></div><div class="status-glow"></div></div>
+    ${bg.s2}
     <div class="s2-header">
       <span class="s2-eyebrow">// ステータスウィンドウ</span>
       <span class="s2-title">取 得 ス キ ル 一 覧</span>
@@ -885,7 +995,7 @@ function buildDOM(d){
 
   <!-- S3: TIMELINE (冒険ログ) -->
   <div class="slide" id="s3">
-    <div class="bg-tensura-s3"><div class="log-lines"></div></div>
+    ${bg.s3}
     <p class="s3-label">// 冒険記録</p>
     <div class="tl-wrap">
       ${d.timeline.map((t,i)=>`
@@ -901,7 +1011,7 @@ function buildDOM(d){
 
   <!-- S4: REQUIREMENTS (種族進化条件) -->
   <div class="slide" id="s4">
-    <div class="bg-tensura-s4"></div>
+    ${bg.s4}
     <p class="s4-label">// 種族進化条件</p>
     <div class="req-stack">
       ${d.requirements.map((r,i)=>`
@@ -915,10 +1025,7 @@ function buildDOM(d){
 
   <!-- S5: REVEAL (異世界ポータル) -->
   <div class="slide" id="s5">
-    <div class="bg-tensura-s5">
-      <div class="portal-ring"></div>
-      <div class="portal-ring-2"></div>
-    </div>
+    ${bg.s5}
     <p class="s5-pre">// 正体判明</p>
     <p class="s5-body">${parseTags(d.reveal.pre_text)}</p>
     <p class="s5-big">${d.reveal.occupation_ja}</p>
@@ -993,6 +1100,73 @@ function initCanvases(){
         cx.fillStyle=g; cx.fill();
         cx.beginPath(); cx.arc(px,py,p.r,0,Math.PI*2);
         cx.fillStyle=`rgba(${p.col},${tw*.9})`; cx.fill();
+      });
+
+      requestAnimationFrame(loop);
+    })();
+  })();
+
+  // Jojo4 S0: スタンドパーティクル（紫・金）
+  (function(){
+    const cv = document.getElementById('cv-s0');
+    if(!cv || cv.dataset.jojo4) return;
+    // only run for jojo4 theme — check parent class
+    if(!cv.closest('.bg-jojo4-s0')) return;
+    cv.dataset.jojo4 = '1';
+    const cx = cv.getContext('2d');
+    let W, H;
+    function resize(){ W=cv.width=cv.offsetWidth; H=cv.height=cv.offsetHeight; }
+    resize(); new ResizeObserver(resize).observe(cv);
+
+    const pts = Array.from({length:120},(_,i)=>({
+      x: Math.random(), y: Math.random(),
+      r: Math.random()*1.8+.4,
+      vx: (Math.random()-.5)*.25,
+      vy: (Math.random()-.5)*.12,
+      ph: Math.random()*Math.PI*2,
+      sp: .4+Math.random()*1.2,
+      col: i%4===0 ? '241,196,15' : i%4===1 ? '155,89,182' : i%4===2 ? '200,160,255' : '255,230,80'
+    }));
+
+    const pillars = Array.from({length:4},(_,i)=>({
+      x: .15+i*.23, ph: i*.9, w: .025+Math.random()*.035
+    }));
+
+    let t=0;
+    (function loop(){
+      t+=.012; cx.clearRect(0,0,W,H);
+      cx.fillStyle='#0A0410'; cx.fillRect(0,0,W,H);
+
+      // light pillars
+      pillars.forEach(p=>{
+        const pulse=.5+.5*Math.sin(t*.5+p.ph);
+        const g=cx.createLinearGradient(p.x*W,0,p.x*W,H);
+        g.addColorStop(0,'rgba(155,89,182,0)');
+        g.addColorStop(.35,`rgba(155,89,182,${.12*pulse})`);
+        g.addColorStop(.65,`rgba(241,196,15,${.07*pulse})`);
+        g.addColorStop(1,'rgba(155,89,182,0)');
+        const w=p.w*W*pulse;
+        cx.fillStyle=g;
+        cx.beginPath();
+        cx.moveTo(p.x*W-w*.2,0); cx.lineTo(p.x*W+w*.2,0);
+        cx.lineTo(p.x*W+w,H); cx.lineTo(p.x*W-w,H);
+        cx.closePath(); cx.fill();
+      });
+
+      pts.forEach(p=>{
+        p.x += p.vx/W + Math.sin(t+p.ph)*.00015;
+        p.y += p.vy/H + Math.cos(t*.7+p.ph)*.0001;
+        if(p.x<0)p.x=1; if(p.x>1)p.x=0;
+        if(p.y<0)p.y=1; if(p.y>1)p.y=0;
+        const tw=.3+.7*Math.sin(t*p.sp+p.ph);
+        const px=p.x*W, py=p.y*H;
+        const g=cx.createRadialGradient(px,py,0,px,py,p.r*6);
+        g.addColorStop(0,`rgba(${p.col},${tw*.7})`);
+        g.addColorStop(1,`rgba(${p.col},0)`);
+        cx.beginPath(); cx.arc(px,py,p.r*6,0,Math.PI*2);
+        cx.fillStyle=g; cx.fill();
+        cx.beginPath(); cx.arc(px,py,p.r,0,Math.PI*2);
+        cx.fillStyle=`rgba(${p.col},${tw})`; cx.fill();
       });
 
       requestAnimationFrame(loop);
