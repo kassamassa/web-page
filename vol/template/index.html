@@ -1143,36 +1143,116 @@ html, body {
   -webkit-text-stroke: 1px #000;
 }
 
-/* S0 title — アウトライン文字 */
+/* S0: スタンド発現アナウンス */
+.jojo-stand-announce {
+  font-size:0.75rem; font-weight:900; letter-spacing:0.5em;
+  color:#F1C40F; background:#000;
+  padding:0.3em 1.2em; border:1px solid #F1C40F;
+  display:inline-block; margin-bottom:1rem;
+  position:relative; z-index:10;
+}
 .jojo4-title .s0-ja {
-  -webkit-text-stroke: 2px #9B59B6;
-  paint-order: stroke fill;
-  text-shadow: 3px 3px 0 #000, 6px 6px 0 rgba(155,89,182,0.3);
+  font-size:clamp(3.5rem,13vw,9rem) !important;
+  -webkit-text-stroke:3px #9B59B6;
+  paint-order:stroke fill;
+  text-shadow:5px 5px 0 #000, 10px 10px 0 rgba(155,89,182,0.4);
+  line-height:1 !important;
+  letter-spacing:0.08em !important;
+  position:relative; z-index:10;
 }
 .jojo4-title .s0-vow {
-  background: #F1C40F;
-  color: #000 !important;
-  padding: 0.3em 0.8em;
-  border: 2px solid #000;
-  box-shadow: 3px 3px 0 #000;
-  display:inline-block;
+  background:#F1C40F; color:#000 !important;
+  padding:0.35em 1em; border:3px solid #000;
+  box-shadow:5px 5px 0 #000;
+  display:inline-block; font-weight:900 !important;
+  font-size:clamp(0.85rem,2vw,1.2rem) !important;
+  position:relative; z-index:10;
 }
 
-/* S1 MISSION — 黒背景でよく見えるよう調整 */
+/* S1 MISSION */
 .jojo4-mission .s1-kinetic .line-inner:not(.accent) {
-  -webkit-text-stroke: 1px #000;
+  -webkit-text-stroke:1px #000;
 }
-.jojo4-mission .s1-label {
-  font-weight:900;
-  letter-spacing:0.2em;
+.jojo4-mission .s1-label { font-weight:900; letter-spacing:0.2em; }
+
+/* S3: body非表示 */
+.jojo4-tl .tl-body { display:none !important; }
+.jojo4-tl .tl-head {
+  font-size:clamp(1.4rem,4vw,2.5rem) !important;
+}
+.jojo4-tl .tl-row { padding:0.6rem 1rem !important; }
+
+/* S4: セリフをど真ん中にドン */
+.jojo-vow-center {
+  position:absolute; inset:0; z-index:15;
+  display:flex; align-items:center; justify-content:center;
+  pointer-events:none;
+}
+.jojo-vow-text {
+  font-size:clamp(2rem,6vw,4.5rem);
+  font-family:'Noto Serif JP',serif; font-weight:900;
+  color:#F1C40F;
+  -webkit-text-stroke:3px #000; paint-order:stroke fill;
+  text-shadow:4px 4px 0 #000, 8px 8px 0 rgba(155,89,182,0.6);
+  background:#000; border:4px solid #F1C40F;
+  box-shadow:6px 6px 0 #9B59B6, 12px 12px 0 #000;
+  padding:0.5em 0.9em; text-align:center;
+  transform:rotate(-3deg);
+  animation:jojoVowPop 0.5s cubic-bezier(0.34,1.56,0.64,1) both;
+  animation-delay:0.3s;
+  max-width:90vw; word-break:keep-all;
+}
+@keyframes jojoVowPop {
+  0%   { transform:scale(0.1) rotate(-15deg); opacity:0; filter:blur(30px); }
+  70%  { transform:scale(1.08) rotate(-2deg); opacity:1; filter:blur(0); }
+  100% { transform:scale(1)    rotate(-3deg); opacity:1; }
+}
+/* req-stack は小さめに */
+.jojo4-req .req-stack { opacity:0.5; transform:scale(0.85); }
+.jojo4-req .req-body  { display:none !important; }
+.jojo4-req .req-kinetic { display:none !important; }
+
+/* S5: シンプル大ゴマ */
+.jojo4-reveal .s5-pre {
+  font-size:0.85rem !important; letter-spacing:0.35em !important;
+  color:#F1C40F !important; background:#000 !important;
+  padding:0.25em 1em !important; border:1px solid #F1C40F !important;
+  display:inline-block !important; margin-bottom:1.2rem !important;
+}
+.jojo4-reveal .s5-big { display:none !important; }
+.jojo4-reveal .s5-ja {
+  font-size:clamp(2.2rem,7vw,5.5rem) !important;
+  font-weight:900 !important; font-family:'Noto Serif JP',serif !important;
+  color:#F1C40F !important;
+  -webkit-text-stroke:3px #000 !important; paint-order:stroke fill !important;
+  text-shadow:4px 4px 0 #000, 9px 9px 0 #9B59B6 !important;
+  background:#fff !important; border:5px solid #000 !important;
+  box-shadow:8px 8px 0 #9B59B6, 15px 15px 0 #000 !important;
+  padding:0.3em 0.8em !important; display:inline-block !important;
+  white-space:nowrap; line-height:1.1 !important;
+  position:relative !important; z-index:10 !important;
+}
+.jojo4-reveal .s5-vow {
+  font-size:clamp(0.85rem,2vw,1.2rem) !important; font-weight:900 !important;
+  color:#9B59B6 !important; -webkit-text-stroke:1px #000 !important;
+  text-shadow:2px 2px 0 #000 !important; background:#000 !important;
+  padding:0.3em 1em !important; display:inline-block !important;
+  border:2px solid #9B59B6 !important;
+}
+.jojo4-reveal .s5-next {
+  background:#9B59B6 !important; color:#fff !important;
+  border:3px solid #000 !important; box-shadow:4px 4px 0 #000 !important;
+  font-weight:900 !important;
 }
 
 /* モバイル */
 @media(max-width:768px){
   .jojo-sfx.sfx-dodo { font-size:clamp(2rem,8vw,4rem); }
-  .jojo-sfx.sfx-gogo { font-size:clamp(1.8rem,6vw,3rem); }
   .jojo-sfx.sfx-baki { font-size:clamp(2.5rem,10vw,6rem); }
   .jojo-frame { inset:3px; border-width:3px; }
+  .jojo-vow-text { font-size:clamp(1.4rem,7vw,3rem); }
+  .jojo4-title .s0-ja { font-size:clamp(2.8rem,14vw,6rem) !important; }
+  .jojo4-reveal .s5-ja { white-space:normal !important; font-size:clamp(1.8rem,9vw,3.5rem) !important; }
 }
 
 /* ────────────────────────────
@@ -1420,6 +1500,7 @@ function buildDOM(d){
     ${jojoOverlay}
     ${isJojo4   ? `<div class="jojo-sfx sfx-dodo">ドドドドドドド</div>` : ''}
     <p class="s-classify">${d.classify}</p>
+    ${isJojo4   ? `<p class="jojo-stand-announce">── スタンド発現 ──</p>` : ''}
     <p class="s0-ja">${d.title_ja}</p>
     <p class="s0-vow">${d.vow}</p>
   </div>
@@ -1472,8 +1553,7 @@ function buildDOM(d){
         <div class="jsr-num">${['Ⅰ','Ⅱ','Ⅲ','Ⅳ','Ⅴ','Ⅵ'][i]}</div>
         <div class="jsr-body">
           <span class="jsr-tag">${s.tag}</span>
-          <p class="jsr-name">${s.name_en}／${s.name_ja}</p>
-          <p class="jsr-sub">${parseTags(s.body)}</p>
+          <p class="jsr-name">${s.name_ja}</p>
         </div>
         <div class="jsr-badge">発現済み ✓</div>
       </div>`).join('')}
@@ -1493,7 +1573,7 @@ function buildDOM(d){
         <span class="tl-t">${t.time}</span>
         <div class="tl-content">
           <p class="tl-head">${t.head}</p>
-          <p class="tl-body">${parseTags(t.body)}</p>
+          ${isTensura ? `<p class="tl-body">${parseTags(t.body)}</p>` : ''}
         </div>
       </div>`).join('')}
     </div>
@@ -1510,10 +1590,13 @@ function buildDOM(d){
       ${d.requirements.map((r,i)=>`
       <div class="req-row">
         <span class="req-num">${['I','II','III','IV'][i]}</span>
-        <div><p class="req-head">${r.head}</p><p class="req-body">${parseTags(r.body)}</p></div>
+        <div><p class="req-head">${r.head}</p>${isTensura ? `<p class="req-body">${parseTags(r.body)}</p>` : ''}</div>
       </div>`).join('')}
     </div>
-    <p class="req-kinetic">${d.vow}</p>
+    ${isJojo4 ? `
+    <div class="jojo-vow-center">
+      <p class="jojo-vow-text">${d.vow}</p>
+    </div>` : `<p class="req-kinetic">— ${d.vow}</p>`}
   </div>
 
   <!-- S5: REVEAL -->
@@ -1527,13 +1610,12 @@ function buildDOM(d){
     ${jojoOverlay}
     ${isJojo4   ? `<div class="jojo-sfx sfx-dodo">やれやれだぜ</div>` : ''}
     <p class="s5-pre">// 正体判明</p>
-    <p class="s5-body">${parseTags(d.reveal.pre_text)}</p>
+    ${isTensura ? `<p class="s5-body">${parseTags(d.reveal.pre_text)}</p>` : ''}
     <p class="s5-big">${d.reveal.occupation_en}</p>
     <p class="s5-ja">${d.reveal.occupation_ja}</p>
-    ${d.wings ? `<div class="s5-wings">${wingsHTML(80)}</div>` : ''}
     <p class="s5-vow">${d.reveal.vow}</p>
     <a class="s5-next" href="/vol/${d.reveal.next_slug}/">
-      NEXT VOL.${d.reveal.next_vol} · ${d.reveal.next_name}
+      Next Vol.${d.reveal.next_vol} · ${d.reveal.next_name}
     </a>
     <a class="s5-cta" href="https://monju.dev" target="_blank">
       凡庸な日常を、心揺さぶる物語に変える。<br>
