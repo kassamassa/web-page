@@ -75,13 +75,7 @@ export default function SlideReqs({ data }: { data: VolData }) {
         ))}
       </div>
 
-      {isJojo4 ? (
-        <div className={s.jojoVowCenter}>
-          <p className={s.jojoVowText}>{data.vow}</p>
-        </div>
-      ) : (
-        <p className={`req-kinetic ${s.reqKinetic}`}>— {data.vow}</p>
-      )}
+      <p className={`req-kinetic ${s.reqKinetic}`}>— {data.vow}</p>
     </div>
   )
 }
