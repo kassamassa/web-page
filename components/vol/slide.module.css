@@ -167,7 +167,7 @@
 .reqKinetic {
   margin-top: 2rem; font-family: var(--font-noto), serif;
   font-size: clamp(1rem,3vw,1.8rem); font-weight: 300; color: var(--primary);
-  letter-spacing: 0.15em; opacity: 0; position: relative; z-index: 2; transform: scale(0.8);
+  letter-spacing: 0.15em; position: relative; z-index: 2;
 }
 
 /* ─── S5 REVEAL ─── */
@@ -338,7 +338,12 @@
 .jojo4Req .reqHead { -webkit-text-stroke: 2px #000; paint-order: stroke fill; text-shadow: 3px 3px 0 rgba(155,89,182,0.4), 5px 5px 0 rgba(0,0,0,0.2); }
 .jojo4Req .reqNum { color: #F1C40F; -webkit-text-stroke: 2px #000; text-shadow: 2px 2px 0 #000; }
 .jojo4Req .reqBody { display: none !important; }
-.jojo4Req .reqKinetic { display: none !important; }
+.jojo4Req .reqKinetic {
+  font-size: clamp(1.2rem,4vw,2.5rem); font-weight: 900; color: #F1C40F;
+  -webkit-text-stroke: 2px #000; paint-order: stroke fill;
+  text-shadow: 3px 3px 0 #000, 6px 6px 0 rgba(155,89,182,0.6);
+  letter-spacing: 0.1em; margin-top: 2rem;
+}
 .jojoVowCenter { position: absolute; inset: 0; z-index: 15; display: flex; align-items: center; justify-content: center; pointer-events: none; }
 .jojoVowText {
   font-size: clamp(2rem,6vw,4.5rem); font-family: var(--font-noto), serif; font-weight: 900;
