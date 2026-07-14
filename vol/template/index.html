@@ -1502,7 +1502,7 @@ function buildDOM(d){
   slides.innerHTML = `
 
   <!-- S0: TITLE -->
-  <div class="slide jojo4-title" id="s0">
+  <div class="slide${isJojo4 ? ' jojo4-title' : ''}" id="s0">
     ${isTensura ? `<div class="bg-tensura-s0"><canvas id="cv-s0"></canvas></div>` : ''}
     ${isJojo4   ? `<div class="bg-jojo-s0"><canvas id="cv-s0"></canvas></div>` : ''}
     ${jojoOverlay}
@@ -1514,7 +1514,7 @@ function buildDOM(d){
   </div>
 
   <!-- S1: MISSION -->
-  <div class="slide jojo4-mission" id="s1">
+  <div class="slide${isJojo4 ? ' jojo4-mission' : ''}" id="s1">
     ${isTensura ? `<div class="bg-wall"><div class="wall-blocks"></div><div class="wall-glow"></div></div>` : ''}
     ${isJojo4   ? `<div class="bg-jojo-s1"><canvas id="cv-s1"></canvas></div>` : ''}
     ${isJojo4   ? `<div class="jojo-hatch"></div><div class="jojo-frame"></div>` : ''}
@@ -1588,7 +1588,7 @@ function buildDOM(d){
   </div>
 
   <!-- S4: REQUIREMENTS -->
-  <div class="slide jojo4-req" id="s4">
+  <div class="slide${isJojo4 ? ' jojo4-req' : ''}" id="s4">
     ${isTensura ? `<div class="bg-tensura-s4"></div>` : ''}
     ${isJojo4   ? `<div class="bg-jojo-s4"><canvas id="cv-s4"></canvas></div>` : ''}
     ${jojoOverlay}
@@ -1608,7 +1608,7 @@ function buildDOM(d){
   </div>
 
   <!-- S5: REVEAL -->
-  <div class="slide jojo4-reveal" id="s5">
+  <div class="slide${isJojo4 ? ' jojo4-reveal' : ''}" id="s5">
     ${isTensura ? `<div class="bg-tensura-s5"><div class="portal-ring"></div><div class="portal-ring-2"></div></div>` : ''}
     ${isJojo4   ? `<div class="bg-jojo-s5">
       <canvas id="cv-s5"></canvas>
