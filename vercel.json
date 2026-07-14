@@ -1,6 +1,0 @@
-{
-  "rewrites": [
-    { "source": "/vol/:slug", "destination": "/vol/template/index.html" },
-    { "source": "/vol/:slug/", "destination": "/vol/template/index.html" }
-  ]
-}

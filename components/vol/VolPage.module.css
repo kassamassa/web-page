@@ -1,0 +1,43 @@
+.loading {
+  position: fixed; inset: 0; z-index: 999;
+  display: flex; align-items: center; justify-content: center;
+  background: var(--black); transition: opacity 0.6s;
+}
+.loading span {
+  font-family: var(--font-mono), monospace;
+  font-size: 0.65rem; letter-spacing: 0.4em; color: var(--primary);
+}
+.loading.hidden { opacity: 0; pointer-events: none; }
+
+.progress {
+  position: fixed; top: 0; left: 0; height: 2px; z-index: 200; width: 0%;
+  transition: width 0.1s;
+}
+.slideNum {
+  position: fixed; bottom: 2rem; right: 2rem;
+  font-family: var(--font-mono), monospace; font-size: 0.6rem;
+  letter-spacing: 0.3em; color: var(--dim); z-index: 200;
+}
+.scrollHint {
+  position: fixed; bottom: 2rem; left: 50%; transform: translateX(-50%);
+  display: flex; flex-direction: column; align-items: center; gap: 0.4rem;
+  z-index: 200; transition: opacity 0.5s;
+}
+.scrollHint span {
+  font-family: var(--font-mono), monospace; font-size: 0.5rem;
+  letter-spacing: 0.35em; color: var(--primary);
+}
+.scrollBar {
+  width: 1px; height: 36px;
+  background: linear-gradient(to bottom, var(--primary), transparent);
+}
+
+.scrollContainer {
+  position: fixed; inset: 0; z-index: 10;
+  overflow-y: scroll; overflow-x: hidden;
+  scroll-snap-type: y mandatory;
+  scroll-behavior: smooth;
+}
+.scrollContainer::-webkit-scrollbar { width: 0; }
+
+.slides { width: 100%; }
