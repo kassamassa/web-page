@@ -878,6 +878,110 @@ html, body {
   /* グリッドを1列に */
   .s2-grid { grid-template-columns: 1fr; }
 }
+
+/* ════════════════════════════
+   JOJO4 THEME
+════════════════════════════ */
+
+/* S0: ドドドド背景 */
+.bg-jojo-s0 {
+  position:absolute; inset:0; z-index:0;
+  background: #0A0008;
+}
+.bg-jojo-s0 canvas { position:absolute; inset:0; width:100%; height:100%; }
+
+/* S1: 集中線 */
+.bg-jojo-s1 {
+  position:absolute; inset:0; z-index:0;
+  background: #F1C40F;
+}
+.bg-jojo-s1 canvas { position:absolute; inset:0; width:100%; height:100%; }
+
+/* S1のテキストを黒に */
+#s1 .s1-kinetic { color: #0A0008 !important; }
+#s1 .s1-kinetic .accent { color: #9B59B6 !important; }
+#s1 .s1-label { color: #0A0008 !important; }
+#s1 .s1-sub { color: rgba(0,0,0,0.6) !important; }
+#s1 .s1-sub strong { color: #0A0008 !important; }
+
+/* S2: コマ割り */
+.bg-jojo-s2 {
+  position:absolute; inset:0; z-index:0;
+  background: #0A0008;
+  overflow: hidden;
+}
+.jojo-panel-1 {
+  position:absolute;
+  top:0; left:0; right:40%; bottom:0;
+  background: #12000F;
+  clip-path: polygon(0 0, 100% 0, 85% 100%, 0 100%);
+  border-right: 3px solid #9B59B6;
+}
+.jojo-panel-2 {
+  position:absolute;
+  top:0; left:60%; right:0; bottom:50%;
+  background: #0A0008;
+  border-bottom: 3px solid #9B59B6;
+}
+.jojo-panel-3 {
+  position:absolute;
+  top:50%; left:62%; right:0; bottom:0;
+  background: #12000F;
+}
+.jojo-dodo-bg {
+  position:absolute; inset:0;
+  font-family:'Noto Serif JP',serif;
+  font-size:8rem; font-weight:900;
+  color:rgba(155,89,182,0.04);
+  display:flex; align-items:center; justify-content:center;
+  letter-spacing:-0.05em;
+  pointer-events:none;
+  white-space:nowrap;
+  overflow:hidden;
+}
+
+/* S3: ベタ塗り×効果線 */
+.bg-jojo-s3 {
+  position:absolute; inset:0; z-index:0;
+  background: #9B59B6;
+}
+.bg-jojo-s3 canvas { position:absolute; inset:0; width:100%; height:100%; }
+#s3 .tl-t { color: #F1C40F !important; text-shadow: none !important; }
+#s3 .tl-head { color: #0A0008 !important; font-size:clamp(1.8rem,4vw,3rem) !important; }
+#s3 .tl-body { color: rgba(0,0,0,0.7) !important; }
+#s3 .s3-label { color: rgba(0,0,0,0.5) !important; }
+#s3 .tl-wrap::before { background: linear-gradient(to bottom, transparent, #F1C40F 10%, #0A0008 90%, transparent) !important; }
+
+/* S4: ゴゴゴゴゴ */
+.bg-jojo-s4 {
+  position:absolute; inset:0; z-index:0;
+  background: #0A0008;
+  overflow:hidden;
+}
+.bg-jojo-s4 canvas { position:absolute; inset:0; width:100%; height:100%; }
+
+/* S5: スタンドオーラ爆発 */
+.bg-jojo-s5 {
+  position:absolute; inset:0; z-index:0;
+  background: #0A0008;
+}
+.bg-jojo-s5 canvas { position:absolute; inset:0; width:100%; height:100%; }
+.jojo-stand-ring {
+  position:absolute; top:50%; left:50%;
+  transform:translate(-50%,-50%);
+  width:min(70vw,70vh); height:min(70vw,70vh);
+  border-radius:50%;
+  border:2px solid rgba(155,89,182,0.3);
+  box-shadow: 0 0 60px rgba(155,89,182,0.2),
+              inset 0 0 60px rgba(155,89,182,0.1);
+}
+.jojo-stand-ring-2 {
+  position:absolute; top:50%; left:50%;
+  transform:translate(-50%,-50%);
+  width:min(50vw,50vh); height:min(50vw,50vh);
+  border-radius:50%;
+  border:1px solid rgba(241,196,15,0.2);
+}
 </style>
 </head>
 <body>
@@ -929,41 +1033,27 @@ function buildDOM(d){
   document.documentElement.style.setProperty('--primary', d.color_primary);
   document.documentElement.style.setProperty('--accent',  d.color_accent);
 
-  const th = d.bg_theme || 'tensura';
-  const bg = {
-    s0: th==='jojo4'
-      ? `<div class="bg-jojo4-s0"><canvas id="cv-s0"></canvas></div>`
-      : `<div class="bg-tensura-s0"><canvas id="cv-s0"></canvas></div>`,
-    s2: th==='jojo4'
-      ? `<div class="bg-jojo4-s2"><div class="jojo-grid"></div><div class="stand-grid"></div></div>`
-      : `<div class="bg-tensura-s2"><div class="status-grid"></div><div class="status-glow"></div></div>`,
-    s3: th==='jojo4'
-      ? `<div class="bg-jojo4-s3"><div class="mirror-lines"></div></div>`
-      : `<div class="bg-tensura-s3"><div class="log-lines"></div></div>`,
-    s4: th==='jojo4'
-      ? `<div class="bg-jojo4-s4"></div>`
-      : `<div class="bg-tensura-s4"></div>`,
-    s5: th==='jojo4'
-      ? `<div class="bg-jojo4-s5"><div class="jojo-portal"></div><div class="jojo-portal-2"></div></div>`
-      : `<div class="bg-tensura-s5"><div class="portal-ring"></div><div class="portal-ring-2"></div></div>`,
-  };
+  const isTensura = d.bg_theme === 'tensura';
+  const isJojo4   = d.bg_theme === 'jojo4';
 
   const slides = document.getElementById('slides');
   slides.innerHTML = `
 
   <!-- S0: TITLE -->
   <div class="slide" id="s0">
-    ${bg.s0}
+    ${isTensura ? `<div class="bg-tensura-s0"><canvas id="cv-s0"></canvas></div>` : ''}
+    ${isJojo4   ? `<div class="bg-jojo-s0"><canvas id="cv-s0"></canvas></div>` : ''}
     <p class="s-classify">${d.classify}</p>
-    <h1 class="s0-en">${d.title_ja}</h1>
-    ${d.title_en ? `<p class="s0-ja">${d.title_en}</p>` : ''}
+    ${d.title_en ? `<h1 class="s0-en">${d.title_en.replace(' ','<br>')}</h1>` : ''}
+    <p class="s0-ja">${d.title_ja}</p>
     <p class="s0-vow">${d.vow}</p>
   </div>
 
   <!-- S1: MISSION -->
   <div class="slide" id="s1">
-    <div class="bg-wall"><div class="wall-blocks"></div><div class="wall-glow"></div></div>
-    <p class="s1-label">${d.mission.label}</p>
+    ${isTensura ? `<div class="bg-wall"><div class="wall-blocks"></div><div class="wall-glow"></div></div>` : ''}
+    ${isJojo4   ? `<div class="bg-jojo-s1"><canvas id="cv-s1"></canvas></div>` : ''}
+    <p class="s1-label">// ${isTensura ? '転生記録' : '覚醒記録'}</p>
     <div class="s1-scene">
       <div class="s1-kinetic" id="s1-kinetic">
         ${d.mission.headline.map((w,i)=>
@@ -974,12 +1064,18 @@ function buildDOM(d){
     </div>
   </div>
 
-  <!-- S2: SKILLS (ステータス画面) -->
+  <!-- S2: SKILLS -->
   <div class="slide" id="s2">
-    ${bg.s2}
+    ${isTensura ? `<div class="bg-tensura-s2"><div class="status-grid"></div><div class="status-glow"></div></div>` : ''}
+    ${isJojo4   ? `<div class="bg-jojo-s2">
+      <div class="jojo-panel-1"></div>
+      <div class="jojo-panel-2"></div>
+      <div class="jojo-panel-3"></div>
+      <div class="jojo-dodo-bg">ドドドドドドドドドド</div>
+    </div>` : ''}
     <div class="s2-header">
-      <span class="s2-eyebrow">// ステータスウィンドウ</span>
-      <span class="s2-title">取 得 ス キ ル 一 覧</span>
+      <span class="s2-eyebrow">${isTensura ? '// ステータスウィンドウ' : '// スタンド能力'}</span>
+      <span class="s2-title">${isTensura ? '取 得 ス キ ル 一 覧' : 'ス タ ン ド 能 力 一 覧'}</span>
     </div>
     <div class="s2-grid">
       ${d.skills.map((s,i)=>`
@@ -988,17 +1084,18 @@ function buildDOM(d){
         <p class="sk-name">${s.name_en}</p>
         <p class="sk-ja">${s.name_ja}</p>
         <p class="sk-body">${parseTags(s.body)}</p>
-        <div class="sk-acquired">取得済み ✓</div>
+        <div class="sk-acquired">${isTensura ? '取得済み ✓' : '発現済み ✓'}</div>
       </div>`).join('')}
     </div>
   </div>
 
-  <!-- S3: TIMELINE (冒険ログ) -->
+  <!-- S3: TIMELINE -->
   <div class="slide" id="s3">
-    ${bg.s3}
-    <p class="s3-label">// 冒険記録</p>
+    ${isTensura ? `<div class="bg-tensura-s3"><div class="log-lines"></div><div class="log-glow"></div></div>` : ''}
+    ${isJojo4   ? `<div class="bg-jojo-s3"><canvas id="cv-s3"></canvas></div>` : ''}
+    <p class="s3-label">// ${isTensura ? '冒険記録' : '覚醒の記録'}</p>
     <div class="tl-wrap">
-      ${d.timeline.map((t,i)=>`
+      ${d.timeline.map(t=>`
       <div class="tl-row">
         <span class="tl-t">${t.time}</span>
         <div class="tl-content">
@@ -1009,10 +1106,11 @@ function buildDOM(d){
     </div>
   </div>
 
-  <!-- S4: REQUIREMENTS (種族進化条件) -->
+  <!-- S4: REQUIREMENTS -->
   <div class="slide" id="s4">
-    ${bg.s4}
-    <p class="s4-label">// 種族進化条件</p>
+    ${isTensura ? `<div class="bg-tensura-s4"></div>` : ''}
+    ${isJojo4   ? `<div class="bg-jojo-s4"><canvas id="cv-s4"></canvas></div>` : ''}
+    <p class="s4-label">// ${isTensura ? '種族進化条件' : 'スタンド使い適性'}</p>
     <div class="req-stack">
       ${d.requirements.map((r,i)=>`
       <div class="req-row">
@@ -1023,14 +1121,22 @@ function buildDOM(d){
     <p class="req-kinetic">— ${d.vow}</p>
   </div>
 
-  <!-- S5: REVEAL (異世界ポータル) -->
+  <!-- S5: REVEAL -->
   <div class="slide" id="s5">
-    ${bg.s5}
+    ${isTensura ? `<div class="bg-tensura-s5"><div class="portal-ring"></div><div class="portal-ring-2"></div></div>` : ''}
+    ${isJojo4   ? `<div class="bg-jojo-s5">
+      <canvas id="cv-s5"></canvas>
+      <div class="jojo-stand-ring"></div>
+      <div class="jojo-stand-ring-2"></div>
+    </div>` : ''}
     <p class="s5-pre">// 正体判明</p>
     <p class="s5-body">${parseTags(d.reveal.pre_text)}</p>
-    <p class="s5-big">${d.reveal.occupation_ja}</p>
+    <p class="s5-big">${d.reveal.occupation_en}</p>
+    <p class="s5-ja">${d.reveal.occupation_ja}</p>
+    ${d.wings ? `<div class="s5-wings">${wingsHTML(80)}</div>` : ''}
+    <p class="s5-vow">${d.reveal.vow}</p>
     <a class="s5-next" href="/vol/${d.reveal.next_slug}/">
-      Next Vol.${d.reveal.next_vol} · ${d.reveal.next_name}
+      NEXT VOL.${d.reveal.next_vol} · ${d.reveal.next_name}
     </a>
     <a class="s5-cta" href="https://monju.dev" target="_blank">
       凡庸な日常を、心揺さぶる物語に変える。<br>
@@ -1168,6 +1274,210 @@ function initCanvases(){
         cx.beginPath(); cx.arc(px,py,p.r,0,Math.PI*2);
         cx.fillStyle=`rgba(${p.col},${tw})`; cx.fill();
       });
+
+      requestAnimationFrame(loop);
+    })();
+  })();
+
+  // ── JOJO4: S0 ドドドドパーティクル ──
+  (function(){
+    const cv = document.getElementById('cv-s0');
+    if(!cv || document.querySelector('#s0 .bg-jojo-s0') === null) return;
+    const cx = cv.getContext('2d');
+    let W,H;
+    function resize(){ W=cv.width=cv.offsetWidth; H=cv.height=cv.offsetHeight; }
+    resize(); new ResizeObserver(resize).observe(cv);
+
+    const cols = Math.floor(innerWidth / 60);
+    const drops = Array.from({length:cols},()=>({
+      y: Math.random()*-100,
+      speed: 0.3+Math.random()*0.8,
+      char: ['ド','ゴ','ズ','バ','ギ'][Math.floor(Math.random()*5)],
+      size: 20+Math.random()*30,
+      alpha: 0.03+Math.random()*0.06,
+    }));
+
+    const particles = Array.from({length:80},(_,i)=>({
+      x:Math.random(), y:Math.random(),
+      r:Math.random()*2+0.5,
+      vx:(Math.random()-.5)*.4,
+      vy:(Math.random()-.5)*.2,
+      ph:Math.random()*Math.PI*2,
+      col: i%3===0 ? '155,89,182' : i%3===1 ? '241,196,15' : '200,150,220'
+    }));
+
+    let t=0;
+    (function loop(){
+      t+=.012; cx.clearRect(0,0,W,H);
+      cx.fillStyle='#0A0008'; cx.fillRect(0,0,W,H);
+
+      drops.forEach((d,i)=>{
+        cx.font=`900 ${d.size}px 'Noto Serif JP',serif`;
+        cx.fillStyle=`rgba(155,89,182,${d.alpha})`;
+        cx.fillText(d.char, i*(W/cols), d.y);
+        d.y += d.speed;
+        if(d.y > H+50) d.y = -50;
+      });
+
+      particles.forEach(p=>{
+        p.x+=p.vx/W; p.y+=p.vy/H;
+        if(p.x<0)p.x=1; if(p.x>1)p.x=0;
+        if(p.y<0)p.y=1; if(p.y>1)p.y=0;
+        const tw=.5+.5*Math.sin(t+p.ph);
+        const px=p.x*W, py=p.y*H;
+        const g=cx.createRadialGradient(px,py,0,px,py,p.r*8);
+        g.addColorStop(0,`rgba(${p.col},${tw*.4})`);
+        g.addColorStop(1,`rgba(${p.col},0)`);
+        cx.beginPath(); cx.arc(px,py,p.r*8,0,Math.PI*2);
+        cx.fillStyle=g; cx.fill();
+      });
+
+      requestAnimationFrame(loop);
+    })();
+  })();
+
+  // ── JOJO4: S1 集中線 ──
+  (function(){
+    const cv = document.getElementById('cv-s1');
+    if(!cv) return;
+    const cx = cv.getContext('2d');
+    let W,H;
+    function resize(){ W=cv.width=cv.offsetWidth; H=cv.height=cv.offsetHeight; }
+    resize(); new ResizeObserver(resize).observe(cv);
+
+    let t=0;
+    (function loop(){
+      t+=.008; cx.clearRect(0,0,W,H);
+      cx.fillStyle='#F1C40F'; cx.fillRect(0,0,W,H);
+
+      const cx2=W/2, cy2=H/2;
+      const lineCount=120;
+      for(let i=0;i<lineCount;i++){
+        const angle=(i/lineCount)*Math.PI*2;
+        const pulse=0.3+0.2*Math.sin(t*2+i*.1);
+        const x1=cx2+Math.cos(angle)*80;
+        const y1=cy2+Math.sin(angle)*80;
+        const x2=cx2+Math.cos(angle)*Math.max(W,H)*1.5;
+        const y2=cy2+Math.sin(angle)*Math.max(W,H)*1.5;
+        cx.beginPath(); cx.moveTo(x1,y1); cx.lineTo(x2,y2);
+        cx.strokeStyle=`rgba(0,0,0,${pulse})`;
+        cx.lineWidth=i%3===0?2:0.8; cx.stroke();
+      }
+
+      requestAnimationFrame(loop);
+    })();
+  })();
+
+  // ── JOJO4: S3 効果線 ──
+  (function(){
+    const cv = document.getElementById('cv-s3');
+    if(!cv) return;
+    const cx = cv.getContext('2d');
+    let W,H;
+    function resize(){ W=cv.width=cv.offsetWidth; H=cv.height=cv.offsetHeight; }
+    resize(); new ResizeObserver(resize).observe(cv);
+
+    let t=0;
+    (function loop(){
+      t+=.01; cx.clearRect(0,0,W,H);
+      cx.fillStyle='#9B59B6'; cx.fillRect(0,0,W,H);
+
+      for(let i=0;i<30;i++){
+        const y=Math.random()*H;
+        const len=100+Math.random()*300;
+        const x=Math.random()*W;
+        const pulse=0.05+0.1*Math.random();
+        cx.beginPath(); cx.moveTo(x,y); cx.lineTo(x+len,y);
+        cx.strokeStyle=`rgba(0,0,0,${pulse})`; cx.lineWidth=1+Math.random()*3; cx.stroke();
+      }
+
+      cx.font=`900 ${60+20*Math.sin(t)}px 'Noto Serif JP',serif`;
+      cx.fillStyle=`rgba(0,0,0,0.05)`;
+      cx.fillText('ゴゴゴゴゴゴゴゴゴゴゴゴゴゴゴゴゴゴゴゴ',0,H*.5);
+
+      requestAnimationFrame(loop);
+    })();
+  })();
+
+  // ── JOJO4: S4 ゴゴゴゴゴ ──
+  (function(){
+    const cv = document.getElementById('cv-s4');
+    if(!cv) return;
+    const cx = cv.getContext('2d');
+    let W,H;
+    function resize(){ W=cv.width=cv.offsetWidth; H=cv.height=cv.offsetHeight; }
+    resize(); new ResizeObserver(resize).observe(cv);
+
+    const rows = 8;
+    let t=0;
+    (function loop(){
+      t+=.015; cx.clearRect(0,0,W,H);
+      cx.fillStyle='#0A0008'; cx.fillRect(0,0,W,H);
+
+      for(let row=0;row<rows;row++){
+        const y=(row/rows)*H + (t*20)%(H/rows);
+        const offset=row%2===0?0:W*.1;
+        const size=30+10*Math.sin(t+row);
+        const alpha=0.04+0.02*Math.sin(t*1.5+row);
+        cx.font=`900 ${size}px 'Noto Serif JP',serif`;
+        cx.fillStyle=`rgba(155,89,182,${alpha})`;
+        cx.fillText('ゴゴゴゴゴゴゴゴゴゴゴゴゴゴゴゴゴゴゴゴゴゴゴゴゴゴ',offset-((t*30)%200),y);
+      }
+
+      for(let i=0;i<8;i++){
+        const x=(i/8)*W+Math.sin(t*.5+i)*20;
+        const pulse=0.03+0.02*Math.sin(t+i);
+        cx.beginPath();
+        cx.moveTo(x,-50); cx.lineTo(x+100,H+50);
+        cx.strokeStyle=`rgba(241,196,15,${pulse})`;
+        cx.lineWidth=1; cx.stroke();
+      }
+
+      requestAnimationFrame(loop);
+    })();
+  })();
+
+  // ── JOJO4: S5 スタンドオーラ ──
+  (function(){
+    const cv = document.getElementById('cv-s5');
+    if(!cv) return;
+    const cx = cv.getContext('2d');
+    let W,H;
+    function resize(){ W=cv.width=cv.offsetWidth; H=cv.height=cv.offsetHeight; }
+    resize(); new ResizeObserver(resize).observe(cv);
+
+    const particles = Array.from({length:120},(_,i)=>({
+      angle:Math.random()*Math.PI*2,
+      r:100+Math.random()*200,
+      speed:0.002+Math.random()*.008,
+      size:Math.random()*3+0.5,
+      col: i%2===0 ? '155,89,182' : '241,196,15',
+      alpha:0.2+Math.random()*.4,
+    }));
+
+    let t=0;
+    (function loop(){
+      t+=.01; cx.clearRect(0,0,W,H);
+      cx.fillStyle='#0A0008'; cx.fillRect(0,0,W,H);
+
+      const cx2=W/2, cy2=H/2;
+
+      particles.forEach(p=>{
+        p.angle+=p.speed;
+        const x=cx2+Math.cos(p.angle)*p.r*(0.8+0.2*Math.sin(t*2+p.angle));
+        const y=cy2+Math.sin(p.angle)*p.r*(0.8+0.2*Math.cos(t*1.5+p.angle));
+        const pulse=0.5+0.5*Math.sin(t*3+p.angle);
+        const g=cx.createRadialGradient(x,y,0,x,y,p.size*6);
+        g.addColorStop(0,`rgba(${p.col},${p.alpha*pulse})`);
+        g.addColorStop(1,`rgba(${p.col},0)`);
+        cx.beginPath(); cx.arc(x,y,p.size*6,0,Math.PI*2);
+        cx.fillStyle=g; cx.fill();
+      });
+
+      const glow=cx.createRadialGradient(cx2,cy2,0,cx2,cy2,150);
+      glow.addColorStop(0,`rgba(155,89,182,${0.1+0.05*Math.sin(t)})`);
+      glow.addColorStop(1,'rgba(155,89,182,0)');
+      cx.fillStyle=glow; cx.fillRect(0,0,W,H);
 
       requestAnimationFrame(loop);
     })();
