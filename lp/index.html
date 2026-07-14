@@ -1,0 +1,785 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>MONJU｜スタンド使いのWeb制作</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Noto+Serif+JP:wght@400;700;900&display=swap" rel="stylesheet">
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+
+:root{
+  --black:#0A0008;
+  --purple:#9B59B6;
+  --gold:#F1C40F;
+  --red:#CC2200;
+  --green:#00FF50;
+  --white:#fff;
+}
+
+html,body{width:100%;height:100%;overflow:hidden;background:var(--black);
+  font-family:'Noto Serif JP',serif;color:var(--white)}
+
+/* ── スクロールコンテナ ── */
+#sc{
+  width:100%;height:100vh;
+  overflow-y:scroll;scroll-snap-type:y mandatory;
+}
+#sc::-webkit-scrollbar{display:none}
+
+/* ── プログレスバー ── */
+#prog{
+  position:fixed;top:0;left:0;height:3px;
+  background:linear-gradient(to right,var(--purple),var(--gold));
+  z-index:200;width:0;pointer-events:none;
+}
+
+/* ── スライドカウンター ── */
+#snum{
+  position:fixed;bottom:2rem;right:2rem;
+  font-size:.68rem;letter-spacing:.35em;color:rgba(255,255,255,.3);
+  z-index:200;
+}
+
+/* ── スライド共通 ── */
+.slide{
+  width:100%;height:100vh;
+  scroll-snap-align:start;scroll-snap-stop:always;
+  position:relative;overflow:hidden;
+  display:flex;flex-direction:column;
+  align-items:center;justify-content:center;
+  text-align:center;padding:3rem 2rem;
+}
+.slide canvas{
+  position:absolute;inset:0;width:100%;height:100%;
+}
+
+/* ── JoJo共通オーバーレイ ── */
+.j-tone{
+  position:absolute;inset:0;z-index:1;pointer-events:none;
+  background-image:radial-gradient(circle,rgba(0,0,0,.15) 1px,transparent 1px);
+  background-size:6px 6px;mix-blend-mode:multiply;
+}
+.j-frame{
+  position:absolute;inset:8px;z-index:2;pointer-events:none;
+  border:4px solid #000;
+  box-shadow:inset 0 0 0 2px rgba(255,255,255,.5),
+             inset 0 0 0 5px #000;
+}
+.j-dia{
+  position:absolute;z-index:3;pointer-events:none;
+  font-size:1rem;color:var(--gold);letter-spacing:.4em;
+  text-shadow:0 0 8px rgba(241,196,15,.5);
+}
+.j-dia.tl{top:1.8rem;left:1.8rem}
+.j-dia.br{bottom:1.8rem;right:1.8rem}
+
+/* ─────────────────────────────
+   S1: Unexpected — 衝撃のエンカウント
+───────────────────────────── */
+#s1{background:var(--black)}
+
+.s1-gogo{
+  position:absolute;right:-0.2em;top:0;bottom:0;z-index:1;
+  pointer-events:none;
+  font-size:clamp(5rem,14vw,10rem);font-weight:900;
+  color:transparent;writing-mode:vertical-rl;letter-spacing:-.05em;
+  -webkit-text-stroke:2px rgba(155,89,182,.18);
+  display:flex;align-items:center;
+}
+
+.s1-eyebrow{
+  font-size:.75rem;letter-spacing:.5em;color:var(--gold);
+  background:#000;padding:.25em 1.2em;
+  border:1px solid var(--gold);display:inline-block;
+  position:relative;z-index:10;margin-bottom:1.5rem;
+}
+.s1-main{
+  font-size:clamp(2.8rem,11vw,7.5rem);font-weight:900;line-height:1;
+  color:var(--white);
+  -webkit-text-stroke:3px var(--purple);paint-order:stroke fill;
+  text-shadow:5px 5px 0 #000,10px 10px 0 rgba(155,89,182,.35);
+  position:relative;z-index:10;margin-bottom:1.5rem;
+}
+.s1-sub{
+  font-size:clamp(.82rem,2vw,1.1rem);line-height:2;
+  color:rgba(255,255,255,.8);max-width:580px;
+  position:relative;z-index:10;
+  text-align:left;border-left:3px solid var(--gold);padding-left:1.2rem;
+}
+
+/* ─────────────────────────────
+   S2: Emotional — 敵の脅威
+───────────────────────────── */
+#s2{background:var(--black)}
+
+.s2-villain{
+  font-size:clamp(2rem,8.5vw,5.5rem);font-weight:900;line-height:1.1;
+  color:var(--red);
+  -webkit-text-stroke:2px #000;paint-order:stroke fill;
+  text-shadow:3px 3px 0 #000,6px 6px 0 rgba(180,0,0,.4);
+  position:relative;z-index:10;margin-bottom:1.2rem;
+  animation:shake .07s ease-in-out infinite alternate;
+}
+.s2-villain small{
+  display:block;font-size:.45em;color:rgba(200,200,200,.7);
+  -webkit-text-stroke:0;text-shadow:none;margin-top:.3em;
+}
+@keyframes shake{
+  from{transform:translate(-1.5px,0) skewX(-0.5deg)}
+  to  {transform:translate(1.5px,0)  skewX(0.5deg)}
+}
+.s2-cry{
+  font-size:clamp(1.2rem,3.5vw,2rem);font-weight:900;
+  color:var(--white);position:relative;z-index:10;margin-bottom:1.2rem;
+  border:2px solid rgba(204,34,0,.4);padding:.3em .8em;
+  background:rgba(0,0,0,.6);
+}
+.s2-sub{
+  font-size:clamp(.8rem,1.8vw,1.05rem);line-height:2;
+  color:rgba(255,255,255,.75);max-width:560px;
+  position:relative;z-index:10;
+  text-align:left;border-left:3px solid var(--red);padding-left:1.2rem;
+}
+
+/* ─────────────────────────────
+   S3: Simple — 救世主の顕現
+───────────────────────────── */
+#s3{background:var(--black)}
+
+.s3-eyebrow{
+  font-size:.75rem;letter-spacing:.5em;color:var(--gold);
+  background:#000;padding:.25em 1.2em;border:1px solid var(--gold);
+  display:inline-block;position:relative;z-index:10;margin-bottom:1.5rem;
+}
+.s3-main{
+  font-size:clamp(2.2rem,9vw,6rem);font-weight:900;line-height:1.15;
+  color:var(--gold);
+  -webkit-text-stroke:2px #000;paint-order:stroke fill;
+  text-shadow:4px 4px 0 #000,9px 9px 0 rgba(155,89,182,.4);
+  position:relative;z-index:10;margin-bottom:1.5rem;
+}
+.s3-sub{
+  font-size:clamp(.82rem,1.8vw,1.05rem);line-height:2;
+  color:rgba(255,255,255,.8);max-width:580px;
+  position:relative;z-index:10;
+  text-align:left;border-left:3px solid var(--gold);padding-left:1.2rem;
+}
+
+/* ─────────────────────────────
+   S4: Concrete — レーダーチャート
+───────────────────────────── */
+#s4{background:var(--black)}
+
+.s4-title{
+  font-size:.8rem;letter-spacing:.4em;color:var(--gold);
+  background:#000;padding:.3em 1.2em;border:1px solid var(--gold);
+  position:relative;z-index:10;margin-bottom:1.2rem;
+}
+#radar-wrap{
+  position:relative;z-index:10;
+  width:min(55vw,380px);height:min(55vw,380px);
+  flex-shrink:0;
+}
+#radar-wrap svg{width:100%;height:100%}
+.s4-foot{
+  font-size:.7rem;letter-spacing:.2em;color:rgba(255,255,255,.4);
+  position:relative;z-index:10;margin-top:.8rem;
+}
+
+/* ─────────────────────────────
+   S5: Credible — 黄金連携
+───────────────────────────── */
+#s5{background:var(--black)}
+
+.s5-eyebrow{
+  font-size:.72rem;letter-spacing:.4em;color:rgba(0,255,80,.6);
+  position:relative;z-index:10;margin-bottom:1.2rem;
+  border:1px solid rgba(0,255,80,.3);padding:.25em 1em;display:inline-block;
+}
+.s5-main{
+  font-size:clamp(1.8rem,6vw,4rem);font-weight:900;line-height:1.25;
+  color:var(--gold);
+  -webkit-text-stroke:2px #000;paint-order:stroke fill;
+  text-shadow:3px 3px 0 #000;
+  position:relative;z-index:10;margin-bottom:1.5rem;
+}
+.s5-sub{
+  font-size:clamp(.8rem,1.8vw,1.05rem);line-height:2;
+  color:rgba(255,255,255,.8);max-width:580px;
+  position:relative;z-index:10;
+  text-align:left;border-left:3px solid rgba(0,255,80,.5);padding-left:1.2rem;
+}
+.s5-badge{
+  display:inline-flex;align-items:center;gap:.5rem;
+  background:rgba(0,255,80,.08);border:1px solid rgba(0,255,80,.35);
+  padding:.35em 1em;font-size:.72rem;letter-spacing:.2em;
+  color:rgba(0,255,80,.8);position:relative;z-index:10;margin-top:1.2rem;
+}
+
+/* ─────────────────────────────
+   S6: Story/CTA — 覚悟の証明
+───────────────────────────── */
+#s6{background:var(--black)}
+
+.s6-eyebrow{
+  font-size:.75rem;letter-spacing:.5em;color:var(--gold);
+  background:#000;padding:.25em 1.2em;border:1px solid var(--gold);
+  display:inline-block;position:relative;z-index:10;margin-bottom:1.5rem;
+}
+.s6-main{
+  font-size:clamp(1.4rem,4.5vw,3rem);font-weight:900;line-height:1.5;
+  color:var(--white);max-width:680px;
+  -webkit-text-stroke:1px rgba(255,255,255,.2);
+  text-shadow:3px 3px 0 rgba(155,89,182,.3);
+  position:relative;z-index:10;margin-bottom:1rem;
+}
+.s6-sub{
+  font-size:clamp(.9rem,2vw,1.2rem);color:rgba(255,255,255,.55);
+  position:relative;z-index:10;margin-bottom:2.5rem;letter-spacing:.05em;
+}
+.s6-btn{
+  position:relative;z-index:10;display:inline-block;
+  font-size:clamp(.9rem,2vw,1.2rem);font-weight:900;
+  font-family:'Noto Serif JP',serif;
+  color:#000;background:var(--gold);
+  border:4px solid #000;
+  box-shadow:6px 6px 0 var(--purple),11px 11px 0 #000;
+  padding:.7em 2.2em;text-decoration:none;letter-spacing:.08em;
+  cursor:pointer;transition:transform .12s,box-shadow .12s;
+}
+.s6-btn:hover{
+  transform:translate(-4px,-4px);
+  box-shadow:10px 10px 0 var(--purple),16px 16px 0 #000;
+}
+.s6-btn-arrow{font-size:1.3em;vertical-align:middle;margin-right:.35em}
+
+/* ── モバイル ── */
+@media(max-width:768px){
+  .j-frame{inset:3px;border-width:3px}
+  .slide{padding:2rem 1.2rem}
+  #radar-wrap{width:min(90vw,320px);height:min(90vw,320px)}
+  .s1-sub,.s2-sub,.s3-sub,.s5-sub{font-size:.8rem}
+}
+</style>
+</head>
+<body>
+
+<div id="prog"></div>
+<div id="snum">01 / 06</div>
+
+<div id="sc">
+
+  <!-- ═══ S1: Unexpected ═══ -->
+  <div class="slide" id="s1">
+    <canvas id="cv1"></canvas>
+    <div class="j-tone"></div>
+    <div class="j-frame"></div>
+    <div class="j-dia tl">♦ ♦ ♦</div>
+    <div class="j-dia br">♦ ♦ ♦</div>
+    <div class="s1-gogo">ゴゴゴゴゴゴゴゴ</div>
+    <p class="s1-eyebrow">── Web制作スタンド、発現 ──</p>
+    <h1 class="s1-main">「きさま！<br>見ているなッ！」</h1>
+    <p class="s1-sub">
+      あなたのWebサイト、もう『時』が止まっていませんか？<br>
+      誰も訪れない、何も売れない。<br>
+      その静寂を打ち破る者がここにいる。
+    </p>
+  </div>
+
+  <!-- ═══ S2: Emotional ═══ -->
+  <div class="slide" id="s2">
+    <canvas id="cv2"></canvas>
+    <div class="j-tone"></div>
+    <div class="j-frame" style="border-color:var(--red);box-shadow:inset 0 0 0 2px rgba(204,34,0,.25),inset 0 0 0 5px #000"></div>
+    <p class="s2-villain">
+      「無駄無駄無駄無駄ァ！」
+      <small>と嗤う『直帰率』。</small>
+    </p>
+    <p class="s2-cry">『なぜ問い合わせが来ないッ…！』</p>
+    <p class="s2-sub">
+      あなたは毎日、見えない敵と戦っている。<br>
+      優れた商品があるのに、WebのUI/UXが足を引っ張るという悲劇。<br>
+      その痛み、私にはわかる。
+    </p>
+  </div>
+
+  <!-- ═══ S3: Simple ═══ -->
+  <div class="slide" id="s3">
+    <canvas id="cv3"></canvas>
+    <div class="j-tone"></div>
+    <div class="j-frame"></div>
+    <div class="j-dia tl">♦ ♦ ♦</div>
+    <div class="j-dia br">♦ ♦ ♦</div>
+    <p class="s3-eyebrow">── 救世主、顕現 ──</p>
+    <h2 class="s3-main">「『Web制作』とは<br>『引力』だ。」</h2>
+    <p class="s3-sub">
+      複雑なマーケティング用語は不要。私の使命はただ一つ。<br>
+      顧客の心を捉えて離さないスタンド能力<strong style="color:var(--gold)">『WEB・クリエイション』</strong>で<br>
+      あなたのビジネスを加速させることだ。
+    </p>
+  </div>
+
+  <!-- ═══ S4: Concrete ═══ -->
+  <div class="slide" id="s4">
+    <canvas id="cv4"></canvas>
+    <div class="j-tone"></div>
+    <p class="s4-title">スタンド能力値 ／ 実装スペック</p>
+    <div id="radar-wrap">
+      <svg id="radar" viewBox="0 0 400 400" xmlns="http://www.w3.org/2000/svg"></svg>
+    </div>
+    <p class="s4-foot">※ 成長性のみレート外 ── 限界突破</p>
+  </div>
+
+  <!-- ═══ S5: Credible ═══ -->
+  <div class="slide" id="s5">
+    <canvas id="cv5"></canvas>
+    <div class="j-tone"></div>
+    <div class="j-frame" style="border-color:rgba(0,255,80,.25);box-shadow:inset 0 0 0 2px rgba(0,255,80,.1),inset 0 0 0 5px #000"></div>
+    <p class="s5-eyebrow">// AI STAND ACTIVATED</p>
+    <h2 class="s5-main">「『理解』したよ。<br>お前の『やりたい事』をな」</h2>
+    <p class="s5-sub">
+      私には最強のサポート・スタンド<strong style="color:rgba(0,255,80,.9)">『ClaudeCode』</strong>がついている。<br>
+      人間のクリエイティビティと、最先端AIの圧倒的な演算能力による黄金の連携。<br>
+      バグを消し去り、最速で高品質なプロダクトを現出させる。
+    </p>
+    <div class="s5-badge">⚡ ClaudeCode × MONJU ── 黄金の連携</div>
+  </div>
+
+  <!-- ═══ S6: CTA ═══ -->
+  <div class="slide" id="s6">
+    <canvas id="cv6"></canvas>
+    <div class="j-tone"></div>
+    <div class="j-frame" style="border-color:var(--gold);box-shadow:inset 0 0 0 2px rgba(241,196,15,.2),inset 0 0 0 5px #000"></div>
+    <div class="j-dia tl">♦ ♦ ♦</div>
+    <div class="j-dia br">♦ ♦ ♦</div>
+    <p class="s6-eyebrow">── 覚悟の証明 ──</p>
+    <h2 class="s6-main">「『覚悟』とは、<br>暗闇の荒野に、<br>進むべき道を切り開くことだ。」</h2>
+    <p class="s6-sub">さあ、共に新しいビジネスの「第1部」を始めよう。</p>
+    <a class="s6-btn" href="mailto:info@monju.dev">
+      <span class="s6-btn-arrow">矢</span>矢を射抜く（無料相談へ進む）
+    </a>
+  </div>
+
+</div><!-- #sc -->
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
+<script>
+/* ═══════════════════════════════
+   PROGRESS + COUNTER
+═══════════════════════════════ */
+const sc   = document.getElementById('sc');
+const prog = document.getElementById('prog');
+const snum = document.getElementById('snum');
+sc.addEventListener('scroll',()=>{
+  const p = sc.scrollTop / (sc.scrollHeight - sc.clientHeight);
+  prog.style.width = (p*100)+'%';
+  snum.textContent = String(Math.min(Math.round(p*5)+1,6)).padStart(2,'0')+' / 06';
+});
+
+/* ═══════════════════════════════
+   CANVAS HELPER
+═══════════════════════════════ */
+function initCanvas(id){
+  const cv = document.getElementById(id);
+  const cx = cv.getContext('2d');
+  let W,H;
+  const resize=()=>{ W=cv.width=cv.offsetWidth; H=cv.height=cv.offsetHeight; };
+  resize(); new ResizeObserver(resize).observe(cv);
+  return {cv,cx,get W(){return W},get H(){return H}};
+}
+
+/* ═══════════════════════════════
+   S1: ゴゴゴパーティクル
+═══════════════════════════════ */
+(()=>{
+  const {cx,get W(){return this._W},get H(){return this._H}} = (()=>{
+    const {cv,cx}=initCanvas('cv1');
+    let W,H;
+    const r=()=>{W=cv.width=cv.offsetWidth;H=cv.height=cv.offsetHeight;};
+    r();new ResizeObserver(r).observe(cv);
+    const cols=Math.floor(window.innerWidth/80)+1;
+    const drops=Array.from({length:cols},(_,i)=>({
+      y:Math.random()*-600, speed:.5+Math.random()*.9,
+      char:['ゴ','ド','ズ','バ','ッ'][Math.floor(Math.random()*5)],
+      size:28+Math.random()*36, alpha:.035+Math.random()*.05,
+      x:i*(window.innerWidth/cols)+Math.random()*20
+    }));
+    const pts=Array.from({length:60},(_,i)=>({
+      x:Math.random(),y:Math.random(),r:Math.random()*2+.5,
+      vx:(Math.random()-.5)*.3,vy:(Math.random()-.5)*.15,
+      ph:Math.random()*Math.PI*2,col:i%2===0?'155,89,182':'241,196,15'
+    }));
+    let t=0;
+    (function loop(){
+      t+=.01;cx.clearRect(0,0,W,H);
+      cx.fillStyle='#0A0008';cx.fillRect(0,0,W,H);
+      drops.forEach(d=>{
+        cx.font=`900 ${d.size}px 'Noto Serif JP',serif`;
+        cx.fillStyle=`rgba(155,89,182,${d.alpha})`;
+        cx.fillText(d.char,d.x,d.y);
+        d.y+=d.speed; if(d.y>H+60)d.y=-80;
+      });
+      for(let i=0;i<4;i++){
+        const x=W*(.12+i*.25),pulse=.5+.5*Math.sin(t*.5+i*.9);
+        const g=cx.createLinearGradient(x,0,x,H);
+        g.addColorStop(0,'rgba(155,89,182,0)');
+        g.addColorStop(.45,`rgba(155,89,182,${.07*pulse})`);
+        g.addColorStop(1,'rgba(155,89,182,0)');
+        cx.fillStyle=g;cx.fillRect(x-W*.025*pulse,0,W*.05*pulse,H);
+      }
+      pts.forEach(p=>{
+        p.x+=p.vx/W;p.y+=p.vy/H;
+        if(p.x<0)p.x=1;if(p.x>1)p.x=0;if(p.y<0)p.y=1;if(p.y>1)p.y=0;
+        const tw=.5+.5*Math.sin(t+p.ph),px=p.x*W,py=p.y*H;
+        const g=cx.createRadialGradient(px,py,0,px,py,p.r*8);
+        g.addColorStop(0,`rgba(${p.col},${tw*.35})`);g.addColorStop(1,`rgba(${p.col},0)`);
+        cx.beginPath();cx.arc(px,py,p.r*8,0,Math.PI*2);cx.fillStyle=g;cx.fill();
+      });
+      requestAnimationFrame(loop);
+    })();
+  })();
+})();
+
+/* ═══════════════════════════════
+   S2: ノイズ + 赤オーラ
+═══════════════════════════════ */
+(()=>{
+  const {cv,cx}=initCanvas('cv2');
+  let W,H;const r=()=>{W=cv.width=cv.offsetWidth;H=cv.height=cv.offsetHeight;};
+  r();new ResizeObserver(r).observe(cv);
+  let t=0;
+  (function loop(){
+    t+=.015;cx.clearRect(0,0,W,H);
+    cx.fillStyle='#0A0008';cx.fillRect(0,0,W,H);
+    const g=cx.createRadialGradient(W*.5,H*.38,0,W*.5,H*.38,W*.75);
+    g.addColorStop(0,`rgba(180,15,0,${.09+.04*Math.sin(t)})`);
+    g.addColorStop(.5,`rgba(100,0,0,${.03*Math.abs(Math.sin(t*.6))})`);
+    g.addColorStop(1,'rgba(0,0,0,0)');
+    cx.fillStyle=g;cx.fillRect(0,0,W,H);
+    for(let i=0;i<18;i++){
+      const y=Math.random()*H;
+      cx.fillStyle=`rgba(255,255,255,${Math.random()*.06})`;
+      cx.fillRect(0,y,W,1+Math.random()*2);
+    }
+    cx.strokeStyle='rgba(204,34,0,0.05)';cx.lineWidth=1;
+    const gs=55;
+    for(let x=0;x<W;x+=gs){
+      cx.beginPath();cx.moveTo(x+Math.sin(t+x*.01)*3,0);cx.lineTo(x+Math.sin(t*.9+x*.01)*3,H);cx.stroke();
+    }
+    for(let y=0;y<H;y+=gs){
+      cx.beginPath();cx.moveTo(0,y+Math.cos(t+y*.01)*3);cx.lineTo(W,y+Math.cos(t*.85+y*.01)*3);cx.stroke();
+    }
+    requestAnimationFrame(loop);
+  })();
+})();
+
+/* ═══════════════════════════════
+   S3: 光爆発
+═══════════════════════════════ */
+(()=>{
+  const {cv,cx}=initCanvas('cv3');
+  let W,H;const r=()=>{W=cv.width=cv.offsetWidth;H=cv.height=cv.offsetHeight;};
+  r();new ResizeObserver(r).observe(cv);
+  const rays=Array.from({length:28},(_,i)=>({a:i/28*Math.PI*2,sp:.002+Math.random()*.003}));
+  let t=0;
+  (function loop(){
+    t+=.012;cx.clearRect(0,0,W,H);
+    cx.fillStyle='#0A0008';cx.fillRect(0,0,W,H);
+    const cx2=W/2,cy2=H/2;
+    rays.forEach((ray,i)=>{
+      ray.a+=ray.sp;
+      const pulse=.5+.5*Math.sin(t*1.5+i*.22);
+      const len=Math.max(W,H)*.85,sp=.055;
+      const g=cx.createLinearGradient(cx2,cy2,cx2+Math.cos(ray.a)*len,cy2+Math.sin(ray.a)*len);
+      g.addColorStop(0,`rgba(241,196,15,${.06*pulse})`);
+      g.addColorStop(1,'rgba(241,196,15,0)');
+      cx.beginPath();cx.moveTo(cx2,cy2);
+      cx.lineTo(cx2+Math.cos(ray.a-sp)*len,cy2+Math.sin(ray.a-sp)*len);
+      cx.lineTo(cx2+Math.cos(ray.a+sp)*len,cy2+Math.sin(ray.a+sp)*len);
+      cx.closePath();cx.fillStyle=g;cx.fill();
+    });
+    const gl=cx.createRadialGradient(cx2,cy2,0,cx2,cy2,220);
+    gl.addColorStop(0,`rgba(241,196,15,${.14+.05*Math.sin(t)})`);
+    gl.addColorStop(.5,`rgba(155,89,182,${.05*Math.abs(Math.sin(t*.7))})`);
+    gl.addColorStop(1,'rgba(0,0,0,0)');
+    cx.fillStyle=gl;cx.fillRect(0,0,W,H);
+    requestAnimationFrame(loop);
+  })();
+})();
+
+/* ═══════════════════════════════
+   S4: サブCanvas（暗い）
+═══════════════════════════════ */
+(()=>{
+  const {cv,cx}=initCanvas('cv4');
+  let W,H;const r=()=>{W=cv.width=cv.offsetWidth;H=cv.height=cv.offsetHeight;};
+  r();new ResizeObserver(r).observe(cv);
+  let t=0;
+  (function loop(){
+    t+=.008;cx.clearRect(0,0,W,H);
+    cx.fillStyle='#0A0008';cx.fillRect(0,0,W,H);
+    const g=cx.createRadialGradient(W/2,H/2,0,W/2,H/2,W*.5);
+    g.addColorStop(0,`rgba(155,89,182,${.05+.02*Math.sin(t)})`);
+    g.addColorStop(1,'rgba(0,0,0,0)');
+    cx.fillStyle=g;cx.fillRect(0,0,W,H);
+    requestAnimationFrame(loop);
+  })();
+})();
+
+/* ═══════════════════════════════
+   S4: 六角レーダーチャート SVG
+═══════════════════════════════ */
+(()=>{
+  const svg=document.getElementById('radar');
+  const NS='http://www.w3.org/2000/svg';
+  const CX=200,CY=200,R=130;
+  const stats=[
+    {label:['破壊力','(CVR向上)'],   val:6, grade:'A'},
+    {label:['スピード','(開発速度)'], val:6, grade:'A'},
+    {label:['射程距離','(SEO対策)'],  val:5, grade:'B'},
+    {label:['持続力','(保守・運用)'], val:6, grade:'A'},
+    {label:['精密機動性','(完璧)'],   val:6, grade:'A'},
+    {label:['成長性','(AI拡張)'],     val:7, grade:'∞'},
+  ];
+  const N=stats.length;
+
+  const pt=(i,r)=>{
+    const a=i/N*Math.PI*2-Math.PI/2;
+    return [CX+Math.cos(a)*r, CY+Math.sin(a)*r];
+  };
+  const el=(tag,attrs={},text)=>{
+    const e=document.createElementNS(NS,tag);
+    Object.entries(attrs).forEach(([k,v])=>e.setAttribute(k,v));
+    if(text!=null)e.textContent=text;
+    return e;
+  };
+
+  // 背景グリッド
+  for(let ring=1;ring<=5;ring++){
+    const r=R*ring/5;
+    const pts=Array.from({length:N},(_,i)=>pt(i,r).join(',')).join(' ');
+    svg.appendChild(el('polygon',{points:pts,fill:'none',stroke:'rgba(255,255,255,0.12)','stroke-width':'1'}));
+  }
+  for(let i=0;i<N;i++){
+    const [x,y]=pt(i,R);
+    svg.appendChild(el('line',{x1:CX,y1:CY,x2:x,y2:y,stroke:'rgba(255,255,255,0.1)','stroke-width':'1'}));
+  }
+
+  // データポリゴン
+  const poly=el('polygon',{
+    points:Array.from({length:N},(_,i)=>pt(i,0).join(',')).join(' '),
+    fill:'rgba(155,89,182,0.3)',stroke:'#9B59B6','stroke-width':'2.5',
+    'stroke-linejoin':'round'
+  });
+  svg.appendChild(poly);
+  // 外縁グロウ
+  const polyGlow=el('polygon',{
+    points:Array.from({length:N},(_,i)=>pt(i,0).join(',')).join(' '),
+    fill:'none',stroke:'rgba(241,196,15,0.3)','stroke-width':'4',
+    'stroke-linejoin':'round',filter:'url(#glow)'
+  });
+  // フィルター定義
+  const defs=el('defs');
+  const filter=el('filter',{id:'glow',x:'-20%',y:'-20%',width:'140%',height:'140%'});
+  filter.appendChild(el('feGaussianBlur',{in:'SourceGraphic',stdDeviation:'4',result:'blur'}));
+  const feMerge=el('feMerge');
+  feMerge.appendChild(el('feMergeNode',{in:'blur'}));
+  feMerge.appendChild(el('feMergeNode',{in:'SourceGraphic'}));
+  filter.appendChild(feMerge);
+  defs.appendChild(filter);
+  svg.insertBefore(defs,svg.firstChild);
+  svg.appendChild(polyGlow);
+
+  // ラベル
+  stats.forEach((s,i)=>{
+    const [x,y]=pt(i,R+26);
+    const t=el('text',{x,y,'text-anchor':'middle','dominant-baseline':'middle',
+      fill:'rgba(255,255,255,0.8)','font-size':'10','font-family':'Noto Serif JP,serif','font-weight':'700'});
+    s.label.forEach((line,li)=>{
+      const ts=el('tspan',{x,dy:li===0?'0':'1.4em'});ts.textContent=line;t.appendChild(ts);
+    });
+    if(i>0){const prev=el('tspan',{dy:'0'});t.insertBefore(el('tspan',{x,dy:li=>li===0?`${-(s.label.length-1)*.7}em`:'0'}),t.firstChild);}
+    svg.appendChild(t);
+    // グレード
+    const [gx,gy]=pt(i,R*Math.min(s.val/6,1)*0.82);
+    svg.appendChild(el('text',{x:gx,y:gy,'text-anchor':'middle','dominant-baseline':'middle',
+      fill:s.val>=7?'#F1C40F':'#fff','font-size':s.val>=7?'16':'13',
+      'font-family':'Noto Serif JP,serif','font-weight':'900',
+      'paint-order':'stroke fill',stroke:'#000','stroke-width':s.val>=7?'2':'1.5'},s.grade));
+  });
+
+  // アニメーション
+  let frame=0,done=false;
+  (function anim(){
+    if(!done){
+      frame++;
+      const ease=Math.min(frame/70,1);
+      const smooth=1-Math.pow(1-ease,3);
+      const pts=stats.map((s,i)=>{const r=R*Math.min(s.val/6,1)*smooth;return pt(i,r).join(',');}).join(' ');
+      poly.setAttribute('points',pts);polyGlow.setAttribute('points',pts);
+      if(frame>=70)done=true;
+    }
+    let t2=frame*.02;
+    const alpha=.28+.08*Math.sin(t2);
+    poly.setAttribute('fill',`rgba(155,89,182,${alpha})`);
+    poly.setAttribute('stroke',`rgba(155,89,182,${.7+.3*Math.sin(t2)})`);
+    polyGlow.setAttribute('stroke',`rgba(241,196,15,${.2+.1*Math.sin(t2+1)})`);
+    frame++;
+    requestAnimationFrame(anim);
+  })();
+})();
+
+/* ═══════════════════════════════
+   S5: コード雨 + 黄金螺旋
+═══════════════════════════════ */
+(()=>{
+  const {cv,cx}=initCanvas('cv5');
+  let W,H;const r=()=>{W=cv.width=cv.offsetWidth;H=cv.height=cv.offsetHeight;};
+  r();new ResizeObserver(r).observe(cv);
+  const chars='01ABCDEFabcdef{}()[];=><!?/'.split('');
+  const cols=Math.floor(window.innerWidth/18)+1;
+  const drops=Array.from({length:cols},()=>({
+    y:Math.random()*-300,speed:.8+Math.random()*1.5,
+    trail:Array.from({length:16},()=>chars[Math.floor(Math.random()*chars.length)]),
+    alpha:.05+Math.random()*.08
+  }));
+  let t=0,spiral=0;
+  (function loop(){
+    t+=.012;spiral+=.009;
+    cx.clearRect(0,0,W,H);cx.fillStyle='#0A0008';cx.fillRect(0,0,W,H);
+    drops.forEach((d,i)=>{
+      const x=i*(W/cols);
+      d.trail.forEach((c,j)=>{
+        const y=d.y+j*16;if(y<0||y>H)return;
+        const isHead=j===d.trail.length-1;
+        cx.fillStyle=isHead?`rgba(0,255,80,${d.alpha*6})`:`rgba(0,200,60,${d.alpha*(1-j/d.trail.length)})`;
+        cx.font='12px monospace';cx.fillText(c,x,y);
+        if(Math.random()<.04)d.trail[j]=chars[Math.floor(Math.random()*chars.length)];
+      });
+      d.y+=d.speed;if(d.y>H+60)d.y=-100;
+    });
+    // 黄金螺旋
+    const cx2=W/2,cy2=H/2;
+    cx.save();cx.strokeStyle=`rgba(241,196,15,${.18+.06*Math.sin(t)})`;cx.lineWidth=1.5;
+    cx.shadowBlur=6;cx.shadowColor='rgba(241,196,15,.4)';
+    cx.beginPath();
+    for(let a=0;a<Math.PI*10;a+=.04){
+      const rr=(a/Math.PI)*22,x=cx2+Math.cos(a+spiral)*rr,y=cy2+Math.sin(a+spiral)*rr;
+      a===0?cx.moveTo(x,y):cx.lineTo(x,y);
+    }
+    cx.stroke();cx.restore();
+    const gl=cx.createRadialGradient(cx2,cy2,0,cx2,cy2,160);
+    gl.addColorStop(0,`rgba(0,255,80,${.06+.03*Math.sin(t)})`);
+    gl.addColorStop(1,'rgba(0,0,0,0)');
+    cx.fillStyle=gl;cx.fillRect(0,0,W,H);
+    requestAnimationFrame(loop);
+  })();
+})();
+
+/* ═══════════════════════════════
+   S6: 覚悟の光
+═══════════════════════════════ */
+(()=>{
+  const {cv,cx}=initCanvas('cv6');
+  let W,H;const r=()=>{W=cv.width=cv.offsetWidth;H=cv.height=cv.offsetHeight;};
+  r();new ResizeObserver(r).observe(cv);
+  let t=0;
+  (function loop(){
+    t+=.01;cx.clearRect(0,0,W,H);cx.fillStyle='#0A0008';cx.fillRect(0,0,W,H);
+    const gl=cx.createRadialGradient(W/2,H/2,0,W/2,H/2,Math.max(W,H)*.65);
+    gl.addColorStop(0,`rgba(241,196,15,${.1+.04*Math.sin(t)})`);
+    gl.addColorStop(.35,`rgba(155,89,182,${.05+.02*Math.sin(t*.7)})`);
+    gl.addColorStop(1,'rgba(0,0,0,0)');
+    cx.fillStyle=gl;cx.fillRect(0,0,W,H);
+    for(let i=0;i<14;i++){
+      const a=i/14*Math.PI*2+t*.08,pulse=.5+.5*Math.sin(t*2+i*.45);
+      const len=Math.max(W,H)*.58;
+      const x1=W/2+Math.cos(a)*25,y1=H/2+Math.sin(a)*25;
+      const x2=W/2+Math.cos(a)*len,y2=H/2+Math.sin(a)*len;
+      const gr=cx.createLinearGradient(x1,y1,x2,y2);
+      gr.addColorStop(0,`rgba(241,196,15,${.1*pulse})`);
+      gr.addColorStop(1,'rgba(241,196,15,0)');
+      cx.beginPath();cx.moveTo(x1,y1);cx.lineTo(x2,y2);
+      cx.strokeStyle=gr;cx.lineWidth=i%2===0?2:1;cx.stroke();
+    }
+    requestAnimationFrame(loop);
+  })();
+})();
+
+/* ═══════════════════════════════
+   GSAP SCROLL ANIMATIONS
+═══════════════════════════════ */
+gsap.registerPlugin(ScrollTrigger);
+ScrollTrigger.scrollerProxy(sc,{
+  scrollTop(v){if(arguments.length)sc.scrollTop=v;return sc.scrollTop},
+  getBoundingClientRect(){return{top:0,left:0,width:innerWidth,height:innerHeight}},
+  pinType:'transform'
+});
+sc.addEventListener('scroll',ScrollTrigger.update);
+ScrollTrigger.defaults({scroller:sc});
+
+// S1 初回エントリー
+gsap.set('.s1-main',{scale:8,opacity:0,filter:'blur(50px) brightness(3)'});
+gsap.set('.s1-eyebrow',{opacity:0,y:20});
+gsap.set('.s1-sub',{opacity:0,x:-30});
+gsap.timeline({defaults:{ease:'power4.out'}})
+  .to('.s1-eyebrow',{opacity:1,y:0,duration:.5},.2)
+  .to('.s1-main',{scale:1,opacity:1,filter:'blur(0) brightness(1)',duration:1.8},.1)
+  .to('.s1-sub',{opacity:1,x:0,duration:.8},.9);
+
+// S2
+gsap.set('.s2-villain',{opacity:0,scale:2.5,filter:'blur(25px)'});
+gsap.set(['.s2-cry','.s2-sub'],{opacity:0,y:25});
+ScrollTrigger.create({trigger:'#s2',start:'top 60%',once:true,
+  onEnter:()=>gsap.timeline({defaults:{ease:'power3.out'}})
+    .to('.s2-villain',{opacity:1,scale:1,filter:'blur(0)',duration:.7})
+    .to('.s2-cry',{opacity:1,y:0,duration:.5},.4)
+    .to('.s2-sub',{opacity:1,y:0,duration:.7},.6)
+});
+
+// S3
+gsap.set('.s3-main',{scale:0.1,opacity:0,filter:'blur(40px)'});
+gsap.set(['.s3-eyebrow','.s3-sub'],{opacity:0,y:25});
+ScrollTrigger.create({trigger:'#s3',start:'top 60%',once:true,
+  onEnter:()=>gsap.timeline({defaults:{ease:'power4.out'}})
+    .to('.s3-eyebrow',{opacity:1,y:0,duration:.5})
+    .to('.s3-main',{scale:1,opacity:1,filter:'blur(0)',duration:1.2,ease:'back.out(1.8)'},.2)
+    .to('.s3-sub',{opacity:1,y:0,duration:.7},.8)
+});
+
+// S4
+gsap.set(['#radar-wrap','.s4-title','.s4-foot'],{opacity:0,y:30});
+ScrollTrigger.create({trigger:'#s4',start:'top 60%',once:true,
+  onEnter:()=>gsap.timeline()
+    .to('.s4-title',{opacity:1,y:0,duration:.5})
+    .to('#radar-wrap',{opacity:1,y:0,duration:.9,ease:'power3.out'},.2)
+    .to('.s4-foot',{opacity:1,y:0,duration:.5},.7)
+});
+
+// S5
+gsap.set('.s5-main',{scale:3,opacity:0,filter:'blur(30px)'});
+gsap.set(['.s5-eyebrow','.s5-sub','.s5-badge'],{opacity:0,y:20});
+ScrollTrigger.create({trigger:'#s5',start:'top 60%',once:true,
+  onEnter:()=>gsap.timeline({defaults:{ease:'power4.out'}})
+    .to('.s5-eyebrow',{opacity:1,y:0,duration:.4})
+    .to('.s5-main',{scale:1,opacity:1,filter:'blur(0)',duration:1.2},.2)
+    .to('.s5-sub',{opacity:1,y:0,duration:.7},.8)
+    .to('.s5-badge',{opacity:1,y:0,duration:.5,ease:'back.out(2)'},1.1)
+});
+
+// S6
+gsap.set('.s6-main',{scale:5,opacity:0,filter:'blur(50px)'});
+gsap.set(['.s6-eyebrow','.s6-sub','.s6-btn'],{opacity:0,y:30});
+ScrollTrigger.create({trigger:'#s6',start:'top 60%',once:true,
+  onEnter:()=>gsap.timeline({defaults:{ease:'power4.out'}})
+    .to('.s6-eyebrow',{opacity:1,y:0,duration:.5})
+    .to('.s6-main',{scale:1,opacity:1,filter:'blur(0)',duration:1.8},.1)
+    .to('.s6-sub',{opacity:1,y:0,duration:.7},1)
+    .to('.s6-btn',{opacity:1,y:0,duration:.7,ease:'back.out(2.5)'},1.4)
+});
+</script>
+</body>
+</html>
